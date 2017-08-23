@@ -1,8 +1,11 @@
+import { UserService } from './../shared/services/user.service';
+import { BroadcastEvent } from 'app/shared/models/broadcast-event';
+import { BroadcastService } from 'app/shared/services/broadcast.service';
 import { TblComponent, TableItem } from './../controls/tbl/tbl.component';
 import { TranslateService } from '@ngx-translate/core';
 import { DropDownElement } from './../shared/models/drop-down-element';
 import { PortalResources } from './../shared/models/portal-resources';
-import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription as RxSubscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -10,7 +13,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { AppsNode } from './../tree-view/apps-node';
 import { AppNode } from './../tree-view/app-node';
-import { TreeViewInfo } from './../tree-view/models/tree-view-info';
+import { TreeViewInfo, SiteData } from './../tree-view/models/tree-view-info';
 
 interface AppTableItem extends TableItem {
   title: string;
@@ -48,17 +51,27 @@ export class AppsListComponent implements OnInit, OnDestroy {
 
   @ViewChild('table') appTable: TblComponent;
 
-  public groupOptions: DropDownElement<string>[] = [{ displayLabel: this.translateService.instant(PortalResources.grouping_none), value: 'none' },
-  { displayLabel: this.translateService.instant(PortalResources.grouping_resourceGroup), value: 'resourceGroup' },
-  { displayLabel: this.translateService.instant(PortalResources.grouping_subscription), value: 'subscription' },
-  { displayLabel: this.translateService.instant(PortalResources.grouping_location), value: 'location' }];
+  public groupOptions: DropDownElement<string>[] = [
+    { displayLabel: this.translateService.instant(PortalResources.grouping_none), value: 'none' },
+    { displayLabel: this.translateService.instant(PortalResources.grouping_resourceGroup), value: 'resourceGroup' },
+    { displayLabel: this.translateService.instant(PortalResources.grouping_subscription), value: 'subscription' },
+    { displayLabel: this.translateService.instant(PortalResources.grouping_location), value: 'location' }];
+
   public groupDisplayText = '';
   public currGroup = 'none';
 
   private _viewInfoSubscription: RxSubscription;
 
-  constructor(public translateService: TranslateService) {
+  constructor(
+    public translateService: TranslateService,
+    public broadcastService: BroadcastService) {
+
     this.viewInfoStream = new Subject<TreeViewInfo<any>>();
+
+    // TODO: unsubscribe
+    this.broadcastService.subscribe(BroadcastEvent.TreeViewChanged, (viewInfo: TreeViewInfo<SiteData>) =>{
+      this.viewInfoStream.next(viewInfo);
+    });
 
     this._viewInfoSubscription = this.viewInfoStream
       .distinctUntilChanged()
@@ -97,10 +110,6 @@ export class AppsListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._viewInfoSubscription.unsubscribe();
-  }
-
-  @Input() set viewInfoInput(viewInfo: TreeViewInfo<any>) {
-    this.viewInfoStream.next(viewInfo);
   }
 
   clickRow(item: AppTableItem) {

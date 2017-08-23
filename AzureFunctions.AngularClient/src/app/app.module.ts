@@ -1,3 +1,6 @@
+import { SharedModule } from './shared/shared.module';
+import { InitialLoadingComponent } from './initial-loading.component';
+import { appRouting } from './app.routing';
 import { LogService } from './shared/services/log.service';
 import { CheckScenarioDirective } from './shared/directives/check-scenario.directive';
 import { ScenarioService } from './shared/services/scenario/scenario.service';
@@ -40,11 +43,10 @@ import { LanguageService } from './shared/services/language.service';
 
 import { AppComponent } from './app.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
-import { BusyStateComponent } from './busy-state/busy-state.component';
-import { TryNowBusyStateComponent } from './try-now-busy-state/try-now-busy-state.component';
-import { TopBarComponent } from './top-bar/top-bar.component';
+// import { TryNowBusyStateComponent } from './try-now-busy-state/try-now-busy-state.component';
+// import { TopBarComponent } from './top-bar/top-bar.component';
 import { DropDownComponent } from './drop-down/drop-down.component';
-import { TryNowComponent } from './try-now/try-now.component';
+// import { TryNowComponent } from './try-now/try-now.component';
 import { FunctionEditComponent } from './function-edit/function-edit.component';
 import { TrialExpiredComponent } from './trial-expired/trial-expired.component';
 import { FunctionNewComponent } from './function-new/function-new.component';
@@ -78,9 +80,9 @@ import { TryLandingComponent } from './try-landing/try-landing.component';
 import { AggregateBlockPipe } from './aggregate-block/aggregate-block.pipe';
 import { MonacoEditorDirective } from './shared/directives/monaco-editor.directive';
 import { TableFunctionMonitorPipe } from './table-function-monitor/table-function-monitor.pipe';
-import { MainComponent } from './main/main.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
-import { TreeViewComponent } from './tree-view/tree-view.component';
+// import { MainComponent } from './main/main.component';
+// import { SideNavComponent } from './side-nav/side-nav.component';
+// import { TreeViewComponent } from './tree-view/tree-view.component';
 import { SiteDashboardComponent } from './site/site-dashboard/site-dashboard.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tab/tab.component';
@@ -91,13 +93,12 @@ import { SiteManageComponent } from './site/site-manage/site-manage.component';
 import { FeatureGroupComponent } from './feature-group/feature-group.component';
 import { DeploymentSourceComponent } from './site/deployment-source/deployment-source.component';
 import { DeploymentSourceSetupComponent } from './site/deployment-source-setup/deployment-source-setup.component';
-import { MultiDropDownComponent } from './multi-drop-down/multi-drop-down.component';
+// import { MultiDropDownComponent } from './multi-drop-down/multi-drop-down.component';
 import { TopRightMenuComponent } from './top-right-menu/top-right-menu.component';
-import { AppsListComponent } from './apps-list/apps-list.component';
 import { FunctionRuntimeComponent } from './site/function-runtime/function-runtime.component';
 import { ApiDetailsComponent } from './api/api-details/api-details.component';
 import { ApiNewComponent } from './api/api-new/api-new.component';
-import { FunctionsListComponent } from './functions-list/functions-list.component';
+// import { FunctionsListComponent } from './functions-list/functions-list.component';
 import { ProxiesListComponent } from './proxies-list/proxies-list.component';
 import { DisabledDashboardComponent } from './disabled-dashboard/disabled-dashboard.component';
 import { CreateFunctionWrapperComponent } from './create-function-wrapper/create-function-wrapper.component';
@@ -124,21 +125,21 @@ import { AppSettingsComponent } from './site/site-config/app-settings/app-settin
 import { ConnectionStringsComponent } from './site/site-config/connection-strings/connection-strings.component';
 import { BindingEventGridComponent } from './binding-event-grid/binding-event-grid.component';
 
-export function ArmServiceFactory(
-  http: Http,
-  userService: UserService,
-  aiService: AiService) {
-  const service = window.location.pathname.toLowerCase() === '/try' ?
-    new ArmTryService(http, userService, aiService) :
-    new ArmService(http, userService, aiService);
+// export function ArmServiceFactory(
+//   http: Http,
+//   userService: UserService,
+//   aiService: AiService) {
+//   const service = window.location.pathname.toLowerCase() === '/try' ?
+//     new ArmTryService(http, userService, aiService) :
+//     new ArmService(http, userService, aiService);
 
-  return service;
-}
+//   return service;
+// }
 
-export function AiServiceFactory() {
-  const service = window.location.pathname.toLowerCase() === '/try' ? new AiTryService() : new AiService();
-  return service;
-}
+// export function AiServiceFactory() {
+//   const service = window.location.pathname.toLowerCase() === '/try' ? new AiTryService() : new AiService();
+//   return service;
+// }
 
 @NgModule(AppModule.moduleDefinition)
 export class AppModule {
@@ -153,12 +154,12 @@ export class AppModule {
     ],
     declarations: [
       AppComponent,
+      InitialLoadingComponent,
       GettingStartedComponent,
-      BusyStateComponent,
-      TryNowBusyStateComponent,
-      TopBarComponent,
-      DropDownComponent,
-      TryNowComponent,
+      // TryNowBusyStateComponent,
+      // TopBarComponent,
+      // DropDownComponent,
+      // TryNowComponent,
       FunctionEditComponent,
       TrialExpiredComponent,
       FunctionNewComponent,
@@ -192,9 +193,9 @@ export class AppModule {
       AggregateBlockPipe,
       MonacoEditorDirective,
       TableFunctionMonitorPipe,
-      MainComponent,
-      SideNavComponent,
-      TreeViewComponent,
+      // MainComponent,
+      // SideNavComponent,
+      // TreeViewComponent,
       SiteDashboardComponent,
       SiteTabComponent,
       TabsComponent,
@@ -206,21 +207,20 @@ export class AppModule {
       FeatureGroupComponent,
       DeploymentSourceComponent,
       DeploymentSourceSetupComponent,
-      MultiDropDownComponent,
+      // MultiDropDownComponent,
       TopRightMenuComponent,
-      AppsListComponent,
       FunctionRuntimeComponent,
       ApiDetailsComponent,
       ApiNewComponent,
-      FunctionsListComponent,
+      // FunctionsListComponent,
       ProxiesListComponent,
       SlotsListComponent,
       SwaggerDefinitionComponent,
       SwaggerFrameDirective,
       DisabledDashboardComponent,
       CreateFunctionWrapperComponent,
-      TblComponent,
-      TblThComponent,
+      // TblComponent,
+      // TblThComponent,
       FnWriteAccessDirective,
       CheckScenarioDirective,
       DynamicLoaderDirective,
@@ -236,7 +236,7 @@ export class AppModule {
       SlotNewComponent,
       EventHubComponent,
       ServiceBusComponent,
-      SearchBoxComponent,
+      // SearchBoxComponent,
       AppSettingComponent,
       DownloadFunctionAppContentComponent,
       GeneralSettingsComponent,
@@ -247,42 +247,44 @@ export class AppModule {
       BindingEventGridComponent
     ],
     imports: [
-      FormsModule,
+      SharedModule.forRoot(),
+      // FormsModule,
       ReactiveFormsModule,
       BrowserModule,
-      FormsModule,
+      // FormsModule,
       HttpModule,
       TranslateModule.forRoot(),
       FileUploadModule,
-      PopoverModule
+      PopoverModule,
+      appRouting
     ],
     providers: [
-      ConfigService,
-      FunctionsService,
-      UserService,
-      LanguageService,
-      PortalService,
-      BroadcastService,
-      FunctionMonitorService,
-      LogService,
-      {
-        provide: ArmService, useFactory: ArmServiceFactory, deps: [
-          Http,
-          UserService,
-          AiService
-        ]
-      },
-      CacheService,
-      ScenarioService,
-      SlotsService,
-      AuthzService,
-      LocalStorageService,
-      TelemetryService,
-      UtilitiesService,
-      BackgroundTasksService,
-      GlobalStateService,
-      { provide: AiService, useFactory: AiServiceFactory },
-      { provide: ErrorHandler, useClass: GlobalErrorHandler },
+      // ConfigService,
+      // FunctionsService,
+      // UserService,
+      // LanguageService,
+      // PortalService,
+      // BroadcastService,
+      // FunctionMonitorService,
+      // LogService,
+      // {
+      //   provide: ArmService, useFactory: ArmServiceFactory, deps: [
+      //     Http,
+      //     UserService,
+      //     AiService
+      //   ]
+      // },
+      // CacheService,
+      // ScenarioService,
+      // SlotsService,
+      // AuthzService,
+      // LocalStorageService,
+      // TelemetryService,
+      // UtilitiesService,
+      // BackgroundTasksService,
+      // GlobalStateService,
+      // { provide: AiService, useFactory: AiServiceFactory },
+      // { provide: ErrorHandler, useClass: GlobalErrorHandler },
     ],
     bootstrap: [AppComponent]
   };

@@ -63,24 +63,25 @@ export class GlobalStateService {
         setTimeout(() => {
             if (this._shouldBeBusy) {
                 this._globalBusyStateComponent.setBusyState();
+            } else {
+                this._globalBusyStateComponent.clearBusyState();
             }
         });
     }
 
     setBusyState(message?: string) {
+        this._shouldBeBusy = true;
+
         if (this._globalBusyStateComponent) {
             this._globalBusyStateComponent.message = message;
             this._globalBusyStateComponent.setBusyState();
-        } else {
-            this._shouldBeBusy = true;
         }
     }
 
     clearBusyState() {
+        this._shouldBeBusy = false;
         if (this._globalBusyStateComponent) {
             this._globalBusyStateComponent.clearBusyState();
-        } else {
-            this._shouldBeBusy = false;
         }
     }
 

@@ -12,6 +12,7 @@ import { FunctionContainer } from './shared/models/function-container';
 import { GlobalStateService } from './shared/services/global-state.service';
 import { UserService } from './shared/services/user.service';
 import { ConfigService } from './shared/services/config.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -24,8 +25,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     public tryFunctionApp: FunctionApp;
 
     private _startupInfo: StartupInfo;
-
     @ViewChild(BusyStateComponent) busyStateComponent: BusyStateComponent;
+    private _originalRoute: string;
 
     constructor(
         private _configService: ConfigService,
@@ -36,8 +37,21 @@ export class AppComponent implements OnInit, AfterViewInit {
         // for retrieving and updating the token.
         _backgroundTasksService: BackgroundTasksService,
         private _broadcastService: BroadcastService,
+        private _router: Router,
+        route: ActivatedRoute
     ) {
         this.ready = false;
+
+        const url = [location.protocol, '//', location.host, location.pathname].join('');
+        
+        // TODO: grab this from config somehow
+        const baseHref = '/ng-full';
+
+        // TODO: also this logic won't work if baseHref is just '/'
+        this._originalRoute = url.split(baseHref)[1];
+
+        this._router.navigate(['']);
+        this._globalStateService.setBusyState();
 
         this.showTryLanding = window.location.pathname.endsWith('/try');
 
@@ -55,6 +69,9 @@ export class AppComponent implements OnInit, AfterViewInit {
             .subscribe(info => {
                 this._startupInfo = info;
                 this.ready = true;
+
+                this._router.navigate([this._originalRoute === '/' ? '/main/apps' : this._originalRoute]);
+                this._globalStateService.clearBusyState();
 
                 if (!this._userService.inIFrame) {
                     this.ready = true;

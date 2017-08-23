@@ -9,11 +9,11 @@ import { GlobalStateService } from '../shared/services/global-state.service';
 import { AiService } from '../shared/services/ai.service';
 
 
-@Component({
-    selector: 'try-now',
-    templateUrl: './try-now.component.html',
-    styleUrls: ['./try-now.component.scss']
-})
+// @Component({
+//     selector: 'try-now',
+//     templateUrl: './try-now.component.html',
+//     styleUrls: ['./try-now.component.scss']
+// })
 export class TryNowComponent implements OnInit {
     private uiResource: UIResource;
     private endTime: Date;

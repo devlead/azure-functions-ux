@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { BroadcastEvent } from 'app/shared/models/broadcast-event';
 import { StoredSubscriptions } from './../shared/models/localStorage/local-storage';
 import { Dom } from './../shared/Utilities/dom';
 import { SearchBoxComponent } from './../search-box/search-box.component';
@@ -41,7 +43,7 @@ import { SlotsService } from './../shared/services/slots.service';
     inputs: ['tryFunctionAppInput']
 })
 export class SideNavComponent implements AfterViewInit {
-    @Output() treeViewInfoEvent: EventEmitter<TreeViewInfo<any>>;
+    // @Output() treeViewInfoEvent: EventEmitter<TreeViewInfo<any>>;
     @ViewChild('treeViewContainer') treeViewContainer;
     @ViewChild(SearchBoxComponent) searchBox: SearchBoxComponent;
 
@@ -91,9 +93,10 @@ export class SideNavComponent implements AfterViewInit {
         public portalService: PortalService,
         public languageService: LanguageService,
         public authZService: AuthzService,
-        public slotsService: SlotsService) {
+        public slotsService: SlotsService,
+        public router: Router) {
 
-        this.treeViewInfoEvent = new EventEmitter<TreeViewInfo<any>>();
+        // this.treeViewInfoEvent = new EventEmitter<TreeViewInfo<any>>();
 
         userService.getStartupInfo().subscribe(info => {
 
@@ -246,7 +249,9 @@ export class SideNavComponent implements AfterViewInit {
         };
 
         this.globalStateService.setDisabledMessage(null);
-        this.treeViewInfoEvent.emit(viewInfo);
+        // this.treeViewInfoEvent.emit(viewInfo);
+        // this.router.navigate(['apps']);
+        this.broadcastService.broadcast(BroadcastEvent.TreeViewChanged, viewInfo);
         this._updateTitle(newSelectedNode);
         this.portalService.closeBlades();
 
@@ -293,7 +298,8 @@ export class SideNavComponent implements AfterViewInit {
         // We only want to clear the view if the user is currently looking at something
         // under the tree path being deleted
         if (this.resourceId.startsWith(resourceId)) {
-            this.treeViewInfoEvent.emit(null);
+            // this.treeViewInfoEvent.emit(null);
+            this.broadcastService.broadcast(BroadcastEvent.TreeViewChanged, null);
         }
     }
 

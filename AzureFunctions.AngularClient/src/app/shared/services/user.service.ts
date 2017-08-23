@@ -105,6 +105,7 @@ export class UserService {
     }
 
     private _setToken(token: string) {
+
         if (token !== this._startupInfo.token) {
 
             Observable.zip(

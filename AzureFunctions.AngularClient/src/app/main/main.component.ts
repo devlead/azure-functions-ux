@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { FunctionApp } from './../shared/function-app';
 import { Component, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { TreeViewInfo } from '../tree-view/models/tree-view-info';
@@ -26,6 +27,7 @@ import { FunctionInfo } from 'app/shared/models/function-info';
     styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements AfterViewInit {
+    public ready = false;
     public resourceId: string;
     public viewInfo: TreeViewInfo<any>;
     public dashboardType: string;
@@ -48,10 +50,14 @@ export class MainComponent implements AfterViewInit {
         _authZService: AuthzService,
         _configService: ConfigService,
         _slotsService: SlotsService,
-        _aiService: AiService) {
+        _aiService: AiService,
+        route: ActivatedRoute,
+        router: Router) {
 
         this.inIFrame = _userService.inIFrame;
         this.inTab = _userService.inTab; // are we in a tab
+
+        // this._globalStateService.setBusyState();
 
         if (this.inTab) {
             this.initializeChildWindow(_userService,
@@ -67,6 +73,16 @@ export class MainComponent implements AfterViewInit {
                 _slotsService,
                 _aiService);
         }
+    }
+
+    ngAfterViewInit(){
+        this._userService.getStartupInfo()
+        .first()
+        .subscribe(info => {
+            this._globalStateService.GlobalBusyStateComponent = this.busyStateComponent;
+            this.ready = true;
+        });
+
     }
 
     private initializeChildWindow(_userService: UserService,
@@ -135,10 +151,10 @@ export class MainComponent implements AfterViewInit {
         this.dashboardType = DashboardType[viewInfo.dashboardType];
     }
 
-    ngAfterViewInit() {
-        this._globalStateService.clearBusyState();
-        this._globalStateService.GlobalBusyStateComponent = this.busyStateComponent;
-    }
+    // ngAfterViewInit() {
+    //     this._globalStateService.clearBusyState();
+    //     this._globalStateService.GlobalBusyStateComponent = this.busyStateComponent;
+    // }
 
     public get trialExpired() {
         return this._globalStateService.TrialExpired;

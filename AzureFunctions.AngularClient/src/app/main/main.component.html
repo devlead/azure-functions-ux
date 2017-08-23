@@ -1,15 +1,20 @@
-<top-bar></top-bar>
+<top-bar *ngIf="ready"></top-bar>
 <busy-state name='dashboard'></busy-state>
 
-<div id="content">
+<div id="content" >
 
-    <side-nav (treeViewInfoEvent)="updateViewInfo($event)" [tryFunctionAppInput]="tryFunctionApp" *ngIf="!inTab"></side-nav>
+    <!-- <side-nav (treeViewInfoEvent)="updateViewInfo($event)" [tryFunctionAppInput]="tryFunctionApp" *ngIf="!inTab"></side-nav> -->
+    <side-nav *ngIf="ready"></side-nav>
 
-    <function-dev *ngIf="inTab" [selectedFunction]="selectedFunction"></function-dev>
+    <!-- <function-dev *ngIf="inTab" [selectedFunction]="selectedFunction"></function-dev> -->
 
-    <div id="dashboard" *ngIf="!!viewInfo">
+    <div id="dashboard" [hidden]="!ready">
+        <router-outlet></router-outlet>
+    </div>
 
-        <apps-list [viewInfoInput]="viewInfo" *ngIf="trialExpired === false && dashboardType === 'apps'"></apps-list>
+    <!-- <div id="dashboard" *ngIf="!!viewInfo"> -->
+
+        <!-- <apps-list [viewInfoInput]="viewInfo" *ngIf="trialExpired === false && dashboardType === 'apps'"></apps-list>
         <create-app [viewInfoInput]="viewInfo" *ngIf="trialExpired === false && dashboardType === 'createApp'"></create-app>
         <site-dashboard [viewInfo]="viewInfo" *ngIf="trialExpired === false && dashboardType === 'app'"></site-dashboard>
         <functions-list [viewInfoInput]="viewInfo" *ngIf="trialExpired === false && dashboardType === 'functions'"></functions-list>
@@ -28,6 +33,6 @@
         <api-new [viewInfoInput]="viewInfo" *ngIf="trialExpired === false && dashboardType === 'createProxy'"></api-new>
         <api-details [viewInfoInput]="viewInfo" *ngIf="trialExpired === false && dashboardType === 'proxy'"></api-details>
         <slot-new [viewInfoInput]="viewInfo" *ngIf="trialExpired === false && dashboardType === 'createSlot'"></slot-new>
-        <trial-expired *ngIf="trialExpired === true "></trial-expired>
-    </div>
+        <trial-expired *ngIf="trialExpired === true "></trial-expired> -->
+    <!-- </div> -->
 </div>

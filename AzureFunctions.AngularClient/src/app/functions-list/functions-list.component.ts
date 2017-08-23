@@ -20,11 +20,11 @@ import { PortalService } from '../shared/services/portal.service';
 import { DashboardType } from '../tree-view/models/dashboard-type';
 import { ErrorType, ErrorEvent } from 'app/shared/models/error-event';
 
-@Component({
-    selector: 'functions-list',
-    templateUrl: './functions-list.component.html',
-    styleUrls: ['./functions-list.component.scss']
-})
+// @Component({
+//     selector: 'functions-list',
+//     templateUrl: './functions-list.component.html',
+//     styleUrls: ['./functions-list.component.scss']
+// })
 export class FunctionsListComponent implements OnInit, OnDestroy {
     public viewInfoStream: Subject<TreeViewInfo<any>>;
     public functions: FunctionNode[] = [];

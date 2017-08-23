@@ -1,3 +1,4 @@
+import { TreeViewInfo } from './../../tree-view/models/tree-view-info';
 import { DirtyStateEvent } from './../models/broadcast-event';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
@@ -9,6 +10,7 @@ import { BroadcastEvent } from '../models/broadcast-event';
 
 @Injectable()
 export class BroadcastService {
+    private treeViewInfoEvent: EventEmitter<TreeViewInfo<any>>;
     private functionDeletedEvent: EventEmitter<FunctionInfo>;
     private functionAddedEvent: EventEmitter<FunctionInfo>;
     private functionSelectedEvent: EventEmitter<FunctionInfo>;
@@ -26,6 +28,7 @@ export class BroadcastService {
     private defaultDirtyReason = 'global';
 
     constructor() {
+        this.treeViewInfoEvent = new EventEmitter<TreeViewInfo<any>>();
         this.functionDeletedEvent = new EventEmitter<FunctionInfo>();
         this.functionAddedEvent = new EventEmitter<FunctionInfo>();
         this.functionSelectedEvent = new EventEmitter<FunctionInfo>();
@@ -94,6 +97,9 @@ export class BroadcastService {
 
     getEventEmitter(eventType: BroadcastEvent): any {
         switch (eventType) {
+            case BroadcastEvent.TreeViewChanged:
+                return this.treeViewInfoEvent;
+
             case BroadcastEvent.FunctionDeleted:
                 return this.functionDeletedEvent;
 
