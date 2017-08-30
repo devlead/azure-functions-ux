@@ -66,7 +66,7 @@ export class PortalService {
         // listener for localstorage events from any child tabs of the window
         this._storageService.addEventListener(this.recieveStorageMessage, this);
 
-        const shellUrl = decodeURI(window.location.href);
+        const shellUrl = decodeURI(window.appsvc.env.url);
         this.shellSrc = Url.getParameterByName(shellUrl, 'trustedAuthority');
         window.addEventListener(Verbs.message, this.iframeReceivedMsg.bind(this), false);
 

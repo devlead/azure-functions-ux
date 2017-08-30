@@ -1,8 +1,6 @@
 import { BackgroundTasksService } from './shared/services/background-tasks.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/retry';
+
 
 import { FunctionApp } from './shared/function-app';
 import { BusyStateComponent } from './busy-state/busy-state.component';
@@ -70,7 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                 this._startupInfo = info;
                 this.ready = true;
 
-                this._router.navigate([this._originalRoute === '/' ? '/main/apps' : this._originalRoute]);
+                this._router.navigate([!this._originalRoute || this._originalRoute === '/' ? '/main/apps' : this._originalRoute]);
                 this._globalStateService.clearBusyState();
 
                 if (!this._userService.inIFrame) {

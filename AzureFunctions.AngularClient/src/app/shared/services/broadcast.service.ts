@@ -1,3 +1,7 @@
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { BroadcastEvent } from 'app/shared/models/broadcast-event';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { TreeViewInfo } from './../../tree-view/models/tree-view-info';
 import { DirtyStateEvent } from './../models/broadcast-event';
 import { Injectable, EventEmitter } from '@angular/core';
@@ -6,11 +10,15 @@ import { Subscription } from 'rxjs/Subscription';
 import { FunctionInfo } from '../models/function-info';
 import { TutorialEvent } from '../models/tutorial';
 import { ErrorEvent } from '../models/error-event';
-import { BroadcastEvent } from '../models/broadcast-event';
+
+interface EventInfo<T> {
+    eventType: BroadcastEvent;
+    obj: T;
+}
+
 
 @Injectable()
 export class BroadcastService {
-    private treeViewInfoEvent: EventEmitter<TreeViewInfo<any>>;
     private functionDeletedEvent: EventEmitter<FunctionInfo>;
     private functionAddedEvent: EventEmitter<FunctionInfo>;
     private functionSelectedEvent: EventEmitter<FunctionInfo>;
@@ -19,16 +27,16 @@ export class BroadcastService {
     private integrateChangedEvent: EventEmitter<void>;
     private tutorialStepEvent: EventEmitter<TutorialEvent>;
     private errorEvent: EventEmitter<ErrorEvent>;
-    private dirtyStateEvent: EventEmitter<DirtyStateEvent>;
     private trialExpired: EventEmitter<void>;
     private resetKeySelection: EventEmitter<FunctionInfo>;
-    private openTabEvent: EventEmitter<string>;
     private clearErrorEvent: EventEmitter<string>;
     private dirtyStateMap: { [key: string]: string } = {};
     private defaultDirtyReason = 'global';
 
+    private replayEvent = new ReplaySubject<EventInfo<any>>(1);
+    private event = new Subject<EventInfo<any>>();
+
     constructor() {
-        this.treeViewInfoEvent = new EventEmitter<TreeViewInfo<any>>();
         this.functionDeletedEvent = new EventEmitter<FunctionInfo>();
         this.functionAddedEvent = new EventEmitter<FunctionInfo>();
         this.functionSelectedEvent = new EventEmitter<FunctionInfo>();
@@ -40,22 +48,48 @@ export class BroadcastService {
         this.functionNewEvent = new EventEmitter<any>();
         this.resetKeySelection = new EventEmitter<FunctionInfo>();
         this.clearErrorEvent = new EventEmitter<string>();
-        this.openTabEvent = new EventEmitter<string>();
-        this.dirtyStateEvent = new EventEmitter<DirtyStateEvent>();
     }
 
+    // DEPRECATED - Use broadcastEvent or broadcastReplayEvent
     broadcast<T>(eventType: BroadcastEvent, obj?: T) {
         var emitter = <EventEmitter<T>>this.getEventEmitter(eventType);
         emitter.emit(obj);
     }
 
+    // DEPRECATED - Use getEvents or getReplayEvents
     subscribe<T>(eventType: BroadcastEvent, callback: (obj?: T) => void, errorCallback?: (obj: any) => void, completedCallback?: (obj: any) => void): Subscription {
         var emitter = <EventEmitter<T>>this.getEventEmitter(eventType);
         return emitter.subscribe(callback, errorCallback, completedCallback);
     }
 
+    broadcastReplayEvent<T>(eventType: BroadcastEvent, obj?: T){
+        this.replayEvent.next({
+            eventType: eventType,
+            obj: obj
+        });
+    }
+
+    getReplayEvents<T>(eventType: BroadcastEvent): Observable<T> {
+        return this.replayEvent
+            .filter(e => e.eventType === eventType)
+            .map(e => <T>e.obj);
+    }
+
+    broadcastEvent<T>(eventType: BroadcastEvent, obj?: T){
+        this.event.next({
+            eventType: eventType,
+            obj: obj
+        });
+    }
+
+    getEvents<T>(eventType: BroadcastEvent): Observable<T> {
+        return this.event
+            .filter(e => e.eventType === eventType)
+            .map(e => <T>e.obj);
+    }
+
     setDirtyState(reason?: string) {
-        this.broadcast<DirtyStateEvent>(BroadcastEvent.DirtyStateChange, { dirty: true, reason: reason });
+        this.broadcastEvent<DirtyStateEvent>(BroadcastEvent.DirtyStateChange, { dirty: true, reason: reason });
 
         reason = reason || this.defaultDirtyReason;
         this.dirtyStateMap[reason] = reason;
@@ -68,7 +102,7 @@ export class BroadcastService {
             return;
         }
 
-        this.broadcast<DirtyStateEvent>(BroadcastEvent.DirtyStateChange, { dirty: false, reason: reason });
+        this.broadcastEvent<DirtyStateEvent>(BroadcastEvent.DirtyStateChange, { dirty: false, reason: reason });
         delete this.dirtyStateMap[reason];
     }
 
@@ -81,7 +115,7 @@ export class BroadcastService {
     }
 
     clearAllDirtyStates() {
-        this.broadcast<DirtyStateEvent>(BroadcastEvent.DirtyStateChange, { dirty: false, reason: null });
+        this.broadcastEvent<DirtyStateEvent>(BroadcastEvent.DirtyStateChange, { dirty: false, reason: null });
         this.dirtyStateMap = {};
     }
 
@@ -97,8 +131,6 @@ export class BroadcastService {
 
     getEventEmitter(eventType: BroadcastEvent): any {
         switch (eventType) {
-            case BroadcastEvent.TreeViewChanged:
-                return this.treeViewInfoEvent;
 
             case BroadcastEvent.FunctionDeleted:
                 return this.functionDeletedEvent;
@@ -129,11 +161,7 @@ export class BroadcastService {
             case BroadcastEvent.ClearError:
                 return this.clearErrorEvent;
 
-            case BroadcastEvent.OpenTab:
-                return this.openTabEvent;
 
-            case BroadcastEvent.DirtyStateChange:
-                return this.dirtyStateEvent;
         }
     }
 }

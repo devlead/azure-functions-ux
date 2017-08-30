@@ -1,5 +1,4 @@
 export enum BroadcastEvent {
-    TreeViewChanged,
     FunctionDeleted,
     FunctionAdded,
     FunctionSelected,
@@ -15,7 +14,9 @@ export enum BroadcastEvent {
     RefreshPortal,
     ClearError,
     OpenTab,
-    DirtyStateChange
+    DirtyStateChange,
+    AppsDashboard,
+    AppDashboard
 }
 
 export interface DirtyStateEvent {

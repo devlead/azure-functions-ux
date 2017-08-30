@@ -1,4 +1,5 @@
-import { Router } from '@angular/router';
+import { LogService } from './../shared/services/log.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BroadcastEvent } from 'app/shared/models/broadcast-event';
 import { StoredSubscriptions } from './../shared/models/localStorage/local-storage';
 import { Dom } from './../shared/Utilities/dom';
@@ -17,7 +18,7 @@ import { FunctionApp } from './../shared/function-app';
 import { PortalResources } from './../shared/models/portal-resources';
 import { AuthzService } from './../shared/services/authz.service';
 import { LanguageService } from './../shared/services/language.service';
-import { Arm } from './../shared/models/constants';
+import { Arm, LogCategories } from './../shared/models/constants';
 import { SiteDescriptor, Descriptor } from './../shared/resourceDescriptors';
 import { PortalService } from './../shared/services/portal.service';
 import { LocalStorageService } from './../shared/services/local-storage.service';
@@ -94,7 +95,9 @@ export class SideNavComponent implements AfterViewInit {
         public languageService: LanguageService,
         public authZService: AuthzService,
         public slotsService: SlotsService,
-        public router: Router) {
+        public logService: LogService,
+        public router: Router,
+        public route: ActivatedRoute) {
 
         // this.treeViewInfoEvent = new EventEmitter<TreeViewInfo<any>>();
 
@@ -249,9 +252,20 @@ export class SideNavComponent implements AfterViewInit {
         };
 
         this.globalStateService.setDisabledMessage(null);
-        // this.treeViewInfoEvent.emit(viewInfo);
-        // this.router.navigate(['apps']);
-        this.broadcastService.broadcast(BroadcastEvent.TreeViewChanged, viewInfo);
+
+        // TODO: I can't seem to get Angular to handle case-insensitive routes properly, even if
+        // I follow the example from here: https://stackoverflow.com/questions/36154672/angular2-make-route-paths-case-insensitive
+        const navId = newSelectedNode.resourceId.slice(1, newSelectedNode.resourceId.length).toLowerCase();
+        this.logService.debug(LogCategories.SideNav, `Navigating to ${navId}`);
+        this.router.navigate([navId], { relativeTo: this.route });
+
+        // setTimeout(() =>{
+        //     this.broadcastService.broadcast(BroadcastEvent.TreeViewChanged, viewInfo);
+        // }, 0);
+
+        const dashboardString = DashboardType[newSelectedNode.dashboardType];
+        this.broadcastService.broadcastReplayEvent(BroadcastEvent[dashboardString], viewInfo);
+
         this._updateTitle(newSelectedNode);
         this.portalService.closeBlades();
 
@@ -298,8 +312,8 @@ export class SideNavComponent implements AfterViewInit {
         // We only want to clear the view if the user is currently looking at something
         // under the tree path being deleted
         if (this.resourceId.startsWith(resourceId)) {
+            // TODO: need to handle clearing view.
             // this.treeViewInfoEvent.emit(null);
-            this.broadcastService.broadcast(BroadcastEvent.TreeViewChanged, null);
         }
     }
 

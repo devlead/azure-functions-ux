@@ -23,7 +23,7 @@ import { ErrorEvent, ErrorType } from '../shared/models/error-event';
 
 export class AppsNode extends TreeNode implements MutableCollection, Disposable, Refreshable {
     public title = this.sideNav.translateService.instant(PortalResources.functionApps);
-    public dashboardType = DashboardType.apps;
+    public dashboardType = DashboardType.AppsDashboard;
     public supportsRefresh = true;
 
     public resourceId = '/apps';

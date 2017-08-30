@@ -8,6 +8,7 @@
 
     var isAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
     bool isOnPrem = System.Configuration.ConfigurationManager.AppSettings["RuntimeType"] == "OnPrem";
+
     var view = View.Azure;
 
     if (!isAzure)
@@ -31,7 +32,8 @@
             env: {
                 hostName: '@Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME")',
                 runtimeType: '@clientConfig.RuntimeType',
-                azureResourceManagerEndpoint: '@clientConfig.AzureResourceManagerEndpoint'
+                azureResourceManagerEndpoint: '@clientConfig.AzureResourceManagerEndpoint',
+                url: '@Html.Raw(Request.Url.AbsoluteUri)'
             }
         };
     </script>

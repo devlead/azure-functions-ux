@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './../shared/services/user.service';
 import { BroadcastEvent } from 'app/shared/models/broadcast-event';
 import { BroadcastService } from 'app/shared/services/broadcast.service';
@@ -60,20 +61,17 @@ export class AppsListComponent implements OnInit, OnDestroy {
   public groupDisplayText = '';
   public currGroup = 'none';
 
-  private _viewInfoSubscription: RxSubscription;
+  private _ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
     public translateService: TranslateService,
-    public broadcastService: BroadcastService) {
+    public broadcastService: BroadcastService,
+    public route: ActivatedRoute) {
 
     this.viewInfoStream = new Subject<TreeViewInfo<any>>();
 
-    // TODO: unsubscribe
-    this.broadcastService.subscribe(BroadcastEvent.TreeViewChanged, (viewInfo: TreeViewInfo<SiteData>) =>{
-      this.viewInfoStream.next(viewInfo);
-    });
-
-    this._viewInfoSubscription = this.viewInfoStream
+    this.viewInfoStream
+      .takeUntil(this._ngUnsubscribe)
       .distinctUntilChanged()
       .switchMap(viewInfo => {
         this.appsNode = (<AppsNode>viewInfo.node);
@@ -106,10 +104,19 @@ export class AppsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.broadcastService.getReplayEvents<TreeViewInfo<SiteData>>(BroadcastEvent.AppsDashboard)
+      .takeUntil(this._ngUnsubscribe)
+      .subscribe(viewInfo => {
+        this.viewInfoStream.next(viewInfo);
+      });
+
+    // this.route.params.subscribe(params => {
+    //   console.log('init');
+    // })
   }
 
   ngOnDestroy(): void {
-    this._viewInfoSubscription.unsubscribe();
+    this._ngUnsubscribe.next();
   }
 
   clickRow(item: AppTableItem) {

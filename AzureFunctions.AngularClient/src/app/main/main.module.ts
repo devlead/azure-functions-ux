@@ -16,7 +16,16 @@ const routing: ModuleWithProviders = RouterModule.forChild([
     {
         path: '', component: MainComponent,
         children: [
-            { path: 'apps', loadChildren: 'app/apps-list/apps-list.module#AppsListModule'}
+            {
+                path: 'apps',
+                loadChildren: 'app/apps-list/apps-list.module#AppsListModule'
+            },
+            {
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/providers/microsoft.web/sites/:site',
+                loadChildren: 'app/site/site.module#SiteModule'
+                // component: SiteDashboardComponent
+            }
+
             // { path: '', redirectTo: 'apps', pathMatch: 'full' },
             // { path: 'apps', component: AppsListComponent }       // TODO: I think this should load a separate module
         ]
@@ -36,6 +45,7 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         SideNavComponent,
         TreeViewComponent,
         SearchBoxComponent,
+        // SiteDashboardComponent
         // AppsListComponent
         // MultiDropDownComponent
         // SearchBoxComponent,

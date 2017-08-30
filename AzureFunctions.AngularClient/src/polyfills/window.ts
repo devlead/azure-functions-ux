@@ -4,6 +4,7 @@ interface Environment {
   hostName: string;
   runtimeType: 'OnPrem' | 'Azure' | 'Standalone';
   azureResourceManagerEndpoint: string;
+  url: string;
 }
 
 interface AppSvc {

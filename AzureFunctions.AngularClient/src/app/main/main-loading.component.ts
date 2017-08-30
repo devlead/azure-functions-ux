@@ -13,7 +13,7 @@ export class MainLoadingComponent {
             .getStartupInfo()
             .first()
             .subscribe(info => {
-                router.navigate(['apps'], { relativeTo: route});
+                router.navigate(['apps'], { relativeTo: route, queryParamsHandling: 'preserve'});
             });
     }
 }

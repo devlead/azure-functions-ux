@@ -1,3 +1,12 @@
+import { CopyPreComponent } from './../copy-pre/copy-pre.component';
+import { ClickToEditComponent } from './../controls/click-to-edit/click-to-edit.component';
+import { TextboxComponent } from './../controls/textbox/textbox.component';
+import { PopOverComponent } from './../pop-over/pop-over.component';
+import { RadioSelectorComponent } from './../radio-selector/radio-selector.component';
+import { DynamicLoaderDirective } from './directives/dynamic-loader.directive';
+import { CheckScenarioDirective } from './directives/check-scenario.directive';
+import { CommandComponent } from './../controls/command-bar/command/command.component';
+import { CommandBarComponent } from './../controls/command-bar/command-bar.component';
 import { TblThComponent } from './../controls/tbl/tbl-th/tbl-th.component';
 import { TblComponent } from './../controls/tbl/tbl.component';
 import { DropDownComponent } from './../drop-down/drop-down.component';
@@ -58,7 +67,16 @@ export function AiServiceFactory() {
         MultiDropDownComponent,
         DropDownComponent,
         TblComponent,
-        TblThComponent
+        TblThComponent,
+        CommandBarComponent,
+        CommandComponent,
+        CheckScenarioDirective,
+        DynamicLoaderDirective,
+        RadioSelectorComponent,
+        PopOverComponent,
+        TextboxComponent,
+        ClickToEditComponent,
+        CopyPreComponent
         // TryNowBusyStateComponent,
         // TryNowComponent,
     ],
@@ -71,7 +89,16 @@ export function AiServiceFactory() {
         BusyStateComponent,
         DropDownComponent,
         TblComponent,
-        TblThComponent
+        TblThComponent,
+        CommandBarComponent,
+        CommandComponent,
+        CheckScenarioDirective,
+        DynamicLoaderDirective,
+        RadioSelectorComponent,
+        PopOverComponent,
+        TextboxComponent,
+        ClickToEditComponent,
+        CopyPreComponent
         // TryNowBusyStateComponent,
         // TryNowComponent
     ],
@@ -79,7 +106,7 @@ export function AiServiceFactory() {
         FormsModule,
         CommonModule,
         ReactiveFormsModule,
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
     ]
 })
 export class SharedModule {

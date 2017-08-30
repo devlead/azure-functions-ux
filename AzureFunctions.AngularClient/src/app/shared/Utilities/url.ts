@@ -1,7 +1,7 @@
 export class Url {
     public static getParameterByName(url, name) {
         if (url === null) {
-            url = window.location.href;
+            url = window.appsvc.env.url;
         }
 
         name = name.replace(/[\[\]]/g, '\\$&');

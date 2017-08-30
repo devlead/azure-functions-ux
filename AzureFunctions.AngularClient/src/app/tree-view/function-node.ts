@@ -26,7 +26,7 @@ export class FunctionNode extends TreeNode implements CanBlockNavChange, Disposa
             parentNode);
         this.iconClass = 'tree-node-svg-icon';
         this.iconUrl = 'images/function_f.svg';
-        this.supportsTab = (Url.getParameterByName(window.location.href, 'appsvc.feature') === 'tabbed');
+        this.supportsTab = (Url.getParameterByName(null, 'appsvc.feature') === 'tabbed');
     }
 
     // This will be called on every change detection run. So I'm making sure to always
