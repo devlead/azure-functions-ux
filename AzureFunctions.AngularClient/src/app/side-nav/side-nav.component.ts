@@ -223,7 +223,12 @@ export class SideNavComponent implements AfterViewInit {
         }, 0);
     }
 
-    updateView(newSelectedNode: TreeNode, newDashboardType: DashboardType, force?: boolean): Observable<boolean> {
+    updateView(
+        newSelectedNode: TreeNode,
+        newDashboardType: DashboardType,
+        resourceId: string,
+        force?: boolean): Observable<boolean> {
+
         if (this.selectedNode) {
 
             if (!force && this.selectedNode === newSelectedNode && this.selectedDashboardType === newDashboardType) {
@@ -242,10 +247,10 @@ export class SideNavComponent implements AfterViewInit {
 
         this.selectedNode = newSelectedNode;
         this.selectedDashboardType = newDashboardType;
-        this.resourceId = newSelectedNode.resourceId;
+        this.resourceId = newSelectedNode.resourceId;   // TODO: should this be updated to resourceId passed in or is this fine?
 
         const viewInfo = <TreeViewInfo<any>>{
-            resourceId: newSelectedNode.resourceId,
+            resourceId: resourceId,
             dashboardType: newDashboardType,
             node: newSelectedNode,
             data: {}
@@ -255,7 +260,10 @@ export class SideNavComponent implements AfterViewInit {
 
         // TODO: I can't seem to get Angular to handle case-insensitive routes properly, even if
         // I follow the example from here: https://stackoverflow.com/questions/36154672/angular2-make-route-paths-case-insensitive
-        const navId = newSelectedNode.resourceId.slice(1, newSelectedNode.resourceId.length).toLowerCase();
+        
+        // BUG: For now we need to remove the "microsoft.web" piece from the URL or Kudu won't list functions properly:
+        // https://github.com/projectkudu/kudu/issues/2543
+        const navId = resourceId.slice(1, resourceId.length).toLowerCase().replace('/providers/microsoft.web', '');
         this.logService.debug(LogCategories.SideNav, `Navigating to ${navId}`);
         this.router.navigate([navId], { relativeTo: this.route });
 
@@ -263,7 +271,7 @@ export class SideNavComponent implements AfterViewInit {
         //     this.broadcastService.broadcast(BroadcastEvent.TreeViewChanged, viewInfo);
         // }, 0);
 
-        const dashboardString = DashboardType[newSelectedNode.dashboardType];
+        const dashboardString = DashboardType[newDashboardType];
         this.broadcastService.broadcastReplayEvent(BroadcastEvent[dashboardString], viewInfo);
 
         this._updateTitle(newSelectedNode);

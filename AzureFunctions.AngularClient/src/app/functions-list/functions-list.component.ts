@@ -20,11 +20,11 @@ import { PortalService } from '../shared/services/portal.service';
 import { DashboardType } from '../tree-view/models/dashboard-type';
 import { ErrorType, ErrorEvent } from 'app/shared/models/error-event';
 
-// @Component({
-//     selector: 'functions-list',
-//     templateUrl: './functions-list.component.html',
-//     styleUrls: ['./functions-list.component.scss']
-// })
+@Component({
+    selector: 'functions-list',
+    templateUrl: './functions-list.component.html',
+    styleUrls: ['./functions-list.component.scss']
+})
 export class FunctionsListComponent implements OnInit, OnDestroy {
     public viewInfoStream: Subject<TreeViewInfo<any>>;
     public functions: FunctionNode[] = [];
@@ -32,9 +32,8 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
     public functionApp: FunctionApp;
     public appNode: AppNode;
 
-    private _viewInfoSubscription: RxSubscription;
-
     private _functionsNode: FunctionsNode;
+    private _ngUnsubscribe = new Subject<void>();
 
     constructor(private _globalStateService: GlobalStateService,
         private _portalService: PortalService,
@@ -42,8 +41,8 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
         private _broadcastService: BroadcastService
     ) {
         this.viewInfoStream = new Subject<TreeViewInfo<any>>();
-
-        this._viewInfoSubscription = this.viewInfoStream
+        this.viewInfoStream
+            .takeUntil(this._ngUnsubscribe)
             .distinctUntilChanged()
             .switchMap(viewInfo => {
                 this.isLoading = true;
@@ -59,15 +58,20 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this._broadcastService.getReplayEvents<TreeViewInfo<void>>(BroadcastEvent.FunctionsDashboard)
+            .takeUntil(this._ngUnsubscribe)
+            .subscribe(viewInfo => {
+                this.viewInfoStream.next(viewInfo);
+            });
     }
 
     ngOnDestroy(): void {
-        this._viewInfoSubscription.unsubscribe();
+        this._ngUnsubscribe.next();
     }
 
-    @Input() set viewInfoInput(viewInfo: TreeViewInfo<any>) {
-        this.viewInfoStream.next(viewInfo);
-    }
+    // @Input() set viewInfoInput(viewInfo: TreeViewInfo<any>) {
+    //     this.viewInfoStream.next(viewInfo);
+    // }
 
     clickRow(item: FunctionNode) {
         item.select();
@@ -133,6 +137,6 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
     }
 
     onNewFunctionClick() {
-        this._functionsNode.openCreateDashboard(DashboardType.createFunction);
+        this._functionsNode.openCreateDashboard(DashboardType.CreateFunctionDashboard);
     }
 }

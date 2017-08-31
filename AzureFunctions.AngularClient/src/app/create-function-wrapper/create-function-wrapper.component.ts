@@ -1,3 +1,5 @@
+import { BroadcastEvent } from 'app/shared/models/broadcast-event';
+import { BroadcastService } from './../shared/services/broadcast.service';
 import { ConfigService } from './../shared/services/config.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -16,33 +18,35 @@ import { DashboardType } from '../tree-view/models/dashboard-type';
 @Component({
   selector: 'create-function-wrapper',
   templateUrl: './create-function-wrapper.component.html',
-  styleUrls: ['./create-function-wrapper.component.scss'],
-  inputs: ['viewInfoInput']
+  styleUrls: ['./create-function-wrapper.component.scss']
 })
 export class CreateFunctionWrapperComponent implements OnInit, OnDestroy {
 
   private _viewInfoStream = new Subject<TreeViewInfo<any>>();
   public dashboardType: string;
   public viewInfo: TreeViewInfo<any>;
-  private _subscription: RxSubscription;
+  private _ngUnsubscribe = new Subject<void>();
 
   constructor(
     private _aiService: AiService,
-    private _configService: ConfigService
+    private _configService: ConfigService,
+    private _broadCastService: BroadcastService
   ) {
-    this._subscription = this._viewInfoStream
+
+    this._viewInfoStream
+      .takeUntil(this._ngUnsubscribe)
       .switchMap(info => {
         this.viewInfo = info;
 
-        if (info.dashboardType === DashboardType.createFunction
-          || info.dashboardType === DashboardType.createFunctionQuickstart) {
+        if (info.dashboardType === DashboardType.CreateFunctionDashboard
+          || info.dashboardType === DashboardType.CreateFunctionQuickstartDashboard) {
 
           this.dashboardType = DashboardType[info.dashboardType];
           return Observable.of(null);
         }
 
         // Set default for autodetect to CreateFunction while we load function list
-        this.dashboardType = DashboardType[DashboardType.createFunction];
+        this.dashboardType = DashboardType[DashboardType.CreateFunctionDashboard];
 
         const appNode = <AppNode>info.node.parent;
         return appNode.functionAppStream;
@@ -64,27 +68,41 @@ export class CreateFunctionWrapperComponent implements OnInit, OnDestroy {
         }
 
         if (fcs.length > 0 || this._configService.isStandalone()) {
-          this.dashboardType = DashboardType[DashboardType.createFunction];
+          this.dashboardType = DashboardType[DashboardType.CreateFunctionDashboard];
         }
         else {
-          this.dashboardType = DashboardType[DashboardType.createFunctionQuickstart];
+          this.dashboardType = DashboardType[DashboardType.CreateFunctionQuickstartDashboard];
         }
       });
   }
 
-  set viewInfoInput(viewInfo: TreeViewInfo<any>) {
-    this._viewInfoStream.next(viewInfo);
-  }
+  // set viewInfoInput(viewInfo: TreeViewInfo<any>) {
+  //   this._viewInfoStream.next(viewInfo);
+  // }
 
   ngOnInit() {
+    this._broadCastService.getReplayEvents<TreeViewInfo<any>>(BroadcastEvent.CreateFunctionDashboard)
+    .takeUntil(this._ngUnsubscribe)
+    .subscribe(info => {
+      this._viewInfoStream.next(info);
+    });
+
+    this._broadCastService.getReplayEvents<TreeViewInfo<any>>(BroadcastEvent.CreateFunctionAutoDetectDashboard)
+    .takeUntil(this._ngUnsubscribe)
+    .subscribe(info => {
+      this._viewInfoStream.next(info);
+    });
+
+    this._broadCastService.getReplayEvents<TreeViewInfo<any>>(BroadcastEvent.CreateFunctionQuickstartDashboard)
+    .takeUntil(this._ngUnsubscribe)
+    .subscribe(info => {
+      this._viewInfoStream.next(info);
+    });
+
   }
 
   ngOnDestroy() {
-    if (this._subscription) {
-      this._subscription.unsubscribe();
-      this._subscription = null;
-    }
-
+    this._ngUnsubscribe.next();
   }
 
 }

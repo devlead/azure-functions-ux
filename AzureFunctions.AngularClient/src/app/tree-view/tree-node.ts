@@ -62,7 +62,8 @@ export class TreeNode implements Disposable, Removable, CanBlockNavChange, Custo
     constructor(
         public sideNav: SideNavComponent,
         public resourceId: string,
-        public parent: TreeNode) { }
+        public parent: TreeNode,
+        public createResourceId?: string) { }
 
     public select(force?: boolean): void {
         if (this.disabled || !this.resourceId) {
@@ -75,7 +76,7 @@ export class TreeNode implements Disposable, Removable, CanBlockNavChange, Custo
             this.isExpanded = true;
         }
 
-        this.sideNav.updateView(this, this.dashboardType, force)
+        this.sideNav.updateView(this, this.dashboardType, this.resourceId, force)
             .do(null, e => {
                 this.sideNav.aiService.trackException(e, '/errors/tree-node/select');
             })
@@ -109,7 +110,11 @@ export class TreeNode implements Disposable, Removable, CanBlockNavChange, Custo
                 this.sideNav.aiService.trackException(e, '/errors/tree-node/refresh');
             })
             .subscribe(() => {
-                this.sideNav.updateView(this.sideNav.selectedNode, this.sideNav.selectedDashboardType, true)
+                this.sideNav.updateView(
+                    this.sideNav.selectedNode,
+                    this.sideNav.selectedDashboardType,
+                    this.resourceId,
+                    true)
                     .do(null, e => {
                         this.sideNav.aiService.trackException(e, '/errors/tree-node/refresh/update-view');
                     })
@@ -181,7 +186,7 @@ export class TreeNode implements Disposable, Removable, CanBlockNavChange, Custo
             }
         }
 
-        this.sideNav.updateView(this, this.newDashboardType)
+        this.sideNav.updateView(this, this.newDashboardType, this.createResourceId)
             .do(null, e => {
                 this.sideNav.aiService.trackException(e, '/errors/tree-node/open-create/update-view');
             })

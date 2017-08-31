@@ -49,33 +49,33 @@ import { DropDownComponent } from './drop-down/drop-down.component';
 // import { TryNowComponent } from './try-now/try-now.component';
 // import { FunctionEditComponent } from './function-edit/function-edit.component';
 import { TrialExpiredComponent } from './trial-expired/trial-expired.component';
-import { FunctionNewComponent } from './function-new/function-new.component';
-import { FunctionQuickstartComponent } from './function-quickstart/function-quickstart.component';
+// import { FunctionNewComponent } from './function-new/function-new.component';
+// import { FunctionQuickstartComponent } from './function-quickstart/function-quickstart.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { SourceControlComponent } from './source-control/source-control.component';
 // import { FunctionDevComponent } from './function-dev/function-dev.component';
-import { BindingComponent } from './binding/binding.component';
-import { TooltipContentComponent } from './tooltip-content/tooltip-content.component';
-import { TooltipDirective } from './tooltip-content/tooltip.directive';
+// import { BindingComponent } from './binding/binding.component';
+// import { TooltipContentComponent } from './tooltip-content/tooltip-content.component';
+// import { TooltipDirective } from './tooltip-content/tooltip.directive';
 import { ErrorListComponent } from './error-list/error-list.component';
-import { TemplatePickerComponent } from './template-picker/template-picker.component';
+// import { TemplatePickerComponent } from './template-picker/template-picker.component';
 // import { PopOverComponent } from './pop-over/pop-over.component';
-import { BindingInputComponent } from './binding-input/binding-input.component';
+// import { BindingInputComponent } from './binding-input/binding-input.component';
 import { BindingDesignerComponent } from './binding-designer/binding-designer.component';
-import { SecretsBoxContainerComponent } from './secrets-box-container/secrets-box-container.component';
-import { SecretsBoxInputDirective } from './secrets-box-container/secrets-box-input.directive';
+// import { SecretsBoxContainerComponent } from './secrets-box-container/secrets-box-container.component';
+// import { SecretsBoxInputDirective } from './secrets-box-container/secrets-box-input.directive';
 import { AggregateBlockComponent } from './aggregate-block/aggregate-block.component';
 // import { CopyPreComponent } from './copy-pre/copy-pre.component';
-import { FileExplorerComponent } from './file-explorer/file-explorer.component';
-import { FunctionIntegrateV2Component } from './function-integrate-v2/function-integrate-v2.component';
-import { FunctionIntegrateComponent } from './function-integrate/function-integrate.component';
+// import { FileExplorerComponent } from './file-explorer/file-explorer.component';
+// import { FunctionIntegrateV2Component } from './function-integrate-v2/function-integrate-v2.component';
+// import { FunctionIntegrateComponent } from './function-integrate/function-integrate.component';
 // import { FunctionKeysComponent } from './function-keys/function-keys.component';
 // import { FunctionManageComponent } from './function-manage/function-manage.component';
-import { FunctionMonitorComponent } from './function-monitor/function-monitor.component';
+// import { FunctionMonitorComponent } from './function-monitor/function-monitor.component';
 import { LogStreamingComponent } from './log-streaming/log-streaming.component';
 // import { RadioSelectorComponent } from './radio-selector/radio-selector.component';
 import { RunHttpComponent } from './run-http/run-http.component';
-import { TableFunctionMonitorComponent } from './table-function-monitor/table-function-monitor.component';
+// import { TableFunctionMonitorComponent } from './table-function-monitor/table-function-monitor.component';
 import { TryLandingComponent } from './try-landing/try-landing.component';
 import { AggregateBlockPipe } from './aggregate-block/aggregate-block.pipe';
 import { MonacoEditorDirective } from './shared/directives/monaco-editor.directive';
@@ -104,8 +104,8 @@ import { DisabledDashboardComponent } from './disabled-dashboard/disabled-dashbo
 import { CreateFunctionWrapperComponent } from './create-function-wrapper/create-function-wrapper.component';
 // import { SwaggerDefinitionComponent } from './site/swagger-definition/swagger-definition.component';
 // import { SwaggerFrameDirective } from './site/swagger-frame/swagger-frame.directive';
-import { FnWriteAccessDirective } from './shared/directives/fn-write-access.directive';
-import { EditModeWarningComponent } from './edit-mode-warning/edit-mode-warning.component';
+// import { FnWriteAccessDirective } from './shared/directives/fn-write-access.directive';
+// import { EditModeWarningComponent } from './edit-mode-warning/edit-mode-warning.component';
 // import { TextboxComponent } from './controls/textbox/textbox.component';
 // import { SiteConfigComponent } from './site/site-config/site-config.component';
 // import { SiteConfigStandaloneComponent } from './site/site-config-standalone/site-config-standalone.component';
@@ -142,27 +142,27 @@ export class AppModule {
       // TryNowComponent,
       // FunctionEditComponent,
       TrialExpiredComponent,
-      FunctionNewComponent,
-      FunctionQuickstartComponent,
+      // FunctionNewComponent,
+      // FunctionQuickstartComponent,
       TutorialComponent,
       SourceControlComponent,
-      BindingComponent,
-      TooltipContentComponent,
-      TooltipDirective,
+      // BindingComponent,
+      // TooltipContentComponent,
+      // TooltipDirective,
       ErrorListComponent,
-      TemplatePickerComponent,
-      BindingInputComponent,
+      // TemplatePickerComponent,
+      // BindingInputComponent,
       BindingDesignerComponent,
-      SecretsBoxContainerComponent,
-      SecretsBoxInputDirective,
+      // SecretsBoxContainerComponent,
+      // SecretsBoxInputDirective,
       AggregateBlockComponent,
-      FileExplorerComponent,
-      FunctionIntegrateV2Component,
-      FunctionIntegrateComponent,
-      FunctionMonitorComponent,
+      // FileExplorerComponent,
+      // FunctionIntegrateV2Component,
+      // FunctionIntegrateComponent,
+      // FunctionMonitorComponent,
       LogStreamingComponent,
-      RunHttpComponent,
-      TableFunctionMonitorComponent,
+      // RunHttpComponent,
+      // TableFunctionMonitorComponent,
       TryLandingComponent,
       AggregateBlockPipe,
       MonacoEditorDirective,
@@ -173,23 +173,23 @@ export class AppModule {
       DeploymentSourceComponent,
       DeploymentSourceSetupComponent,
       TopRightMenuComponent,
-      ApiDetailsComponent,
-      ApiNewComponent,
+      // ApiDetailsComponent,
+      // ApiNewComponent,
       ProxiesListComponent,
       SlotsListComponent,
       DisabledDashboardComponent,
-      CreateFunctionWrapperComponent,
-      FnWriteAccessDirective,
-      EditModeWarningComponent,
+      // CreateFunctionWrapperComponent,
+      // FnWriteAccessDirective,
+      // EditModeWarningComponent,
       CreateAppComponent,
       SlotsListComponent,
       SlotNewComponent,
-      EventHubComponent,
-      ServiceBusComponent,
-      AppSettingComponent,
-      PairListComponent,
-      RequestResposeOverrideComponent,
-      BindingEventGridComponent
+      // EventHubComponent,
+      // ServiceBusComponent,
+      // AppSettingComponent,
+      // PairListComponent,
+      // RequestResposeOverrideComponent,
+      // BindingEventGridComponent
     ],
     imports: [
       SharedModule.forRoot(),

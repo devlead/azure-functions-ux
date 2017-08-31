@@ -18,8 +18,8 @@ import { Action } from '../shared/models/binding';
 
 export class FunctionsNode extends TreeNode implements MutableCollection, Disposable, CustomSelection, Collection {
     public title = this.sideNav.translateService.instant(PortalResources.functions);
-    public dashboardType = DashboardType.functions;
-    public newDashboardType = DashboardType.createFunctionAutoDetect;
+    public dashboardType = DashboardType.FunctionsDashboard;
+    public newDashboardType = DashboardType.CreateFunctionAutoDetectDashboard;
     public nodeClass = 'tree-node collection-node';
     public action: Action;
 
@@ -27,7 +27,7 @@ export class FunctionsNode extends TreeNode implements MutableCollection, Dispos
         sideNav: SideNavComponent,
         public functionApp: FunctionApp,
         parentNode: TreeNode) {
-        super(sideNav, functionApp.site.id + '/functions', parentNode);
+        super(sideNav, functionApp.site.id + '/functions', parentNode, functionApp.site.id + '/createFunction');
 
         this.iconClass = 'tree-node-collection-icon';
         this.iconUrl = 'images/BulletList.svg';
@@ -40,7 +40,7 @@ export class FunctionsNode extends TreeNode implements MutableCollection, Dispos
                     this.newDashboardType = DashboardType.none;
                 } else {
                     this.title = this.sideNav.translateService.instant(PortalResources.functions);
-                    this.newDashboardType = DashboardType.createFunctionAutoDetect;
+                    this.newDashboardType = DashboardType.CreateFunctionAutoDetectDashboard;
                 }
             });
     }

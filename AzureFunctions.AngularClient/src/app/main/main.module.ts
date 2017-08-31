@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { TreeViewComponent } from './../tree-view/tree-view.component';
 import { CommonModule } from '@angular/common';
 import { MultiDropDownComponent } from './../multi-drop-down/multi-drop-down.component';
-import { SearchBoxComponent } from './../search-box/search-box.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SideNavComponent } from './../side-nav/side-nav.component';
 import { SharedModule } from './../shared/shared.module';
@@ -21,10 +20,19 @@ const routing: ModuleWithProviders = RouterModule.forChild([
                 loadChildren: 'app/apps-list/apps-list.module#AppsListModule'
             },
             {
-                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/providers/microsoft.web/sites/:site',
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site',
                 loadChildren: 'app/site/site.module#SiteModule'
-                // component: SiteDashboardComponent
+            },
+            {
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/functions',
+                loadChildren: 'app/functions-list/functions-list.module#FunctionsListModule'
+            },
+            {
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/createfunction',
+                loadChildren: 'app/create-function-wrapper/create-function.module#CreateFunctionModule'
             }
+
+
 
             // { path: '', redirectTo: 'apps', pathMatch: 'full' },
             // { path: 'apps', component: AppsListComponent }       // TODO: I think this should load a separate module
@@ -44,7 +52,6 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         MainComponent,
         SideNavComponent,
         TreeViewComponent,
-        SearchBoxComponent,
         // SiteDashboardComponent
         // AppsListComponent
         // MultiDropDownComponent

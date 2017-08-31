@@ -1,3 +1,18 @@
+import { PopoverModule } from 'ng2-popover';
+import { BindingEventGridComponent } from './../binding-event-grid/binding-event-grid.component';
+import { RequestResposeOverrideComponent } from './../api/request-respose-override/request-respose-override.component';
+import { PairListComponent } from './../controls/pair-list/pair-list.component';
+import { AppSettingComponent } from './../pickers/app-setting/app-setting.component';
+import { ServiceBusComponent } from './../pickers/service-bus/service-bus.component';
+import { EventHubComponent } from './../pickers/event-hub/event-hub.component';
+import { SecretsBoxInputDirective } from './../secrets-box-container/secrets-box-input.directive';
+import { SecretsBoxContainerComponent } from './../secrets-box-container/secrets-box-container.component';
+import { TooltipDirective } from './../tooltip-content/tooltip.directive';
+import { TooltipContentComponent } from './../tooltip-content/tooltip-content.component';
+import { SharedModule } from './shared.module';
+import { BindingInputComponent } from './../binding-input/binding-input.component';
+import { BindingComponent } from './../binding/binding.component';
+import { TemplatePickerComponent } from './../template-picker/template-picker.component';
 import { EditModeWarningComponent } from './../edit-mode-warning/edit-mode-warning.component';
 import { SearchBoxComponent } from './../search-box/search-box.component';
 import { FnWriteAccessDirective } from './directives/fn-write-access.directive';
@@ -46,110 +61,56 @@ import { TopBarComponent } from './../top-bar/top-bar.component';
 import { NgModule, ModuleWithProviders, ErrorHandler } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-export function ArmServiceFactory(
-    http: Http,
-    userService: UserService,
-    aiService: AiService) {
-    const service = window.location.pathname.toLowerCase() === '/try' ?
-        new ArmTryService(http, userService, aiService) :
-        new ArmService(http, userService, aiService);
-
-    return service;
-}
-
-export function AiServiceFactory() {
-    const service = window.location.pathname.toLowerCase() === '/try' ? new AiTryService() : new AiService();
-    return service;
-}
-
 
 @NgModule({
     declarations: [
-        TopBarComponent,
-        BusyStateComponent,
-        MultiDropDownComponent,
-        DropDownComponent,
-        TblComponent,
-        TblThComponent,
-        CommandBarComponent,
-        CommandComponent,
-        CheckScenarioDirective,
-        DynamicLoaderDirective,
-        RadioSelectorComponent,
-        PopOverComponent,
-        TextboxComponent,
-        ClickToEditComponent,
-        CopyPreComponent,
-        // FnWriteAccessDirective,
-        SearchBoxComponent,
-        // EditModeWarningComponent  // It may make sense to put this in a Function-specific shared component
-        // TryNowBusyStateComponent,
-        // TryNowComponent,
+        FnWriteAccessDirective,
+        EditModeWarningComponent,
+        TemplatePickerComponent,
+        BindingComponent,
+        BindingInputComponent,
+        TooltipContentComponent,
+        TooltipDirective,
+        SecretsBoxContainerComponent,
+        SecretsBoxInputDirective,
+        EventHubComponent,
+        ServiceBusComponent,
+        AppSettingComponent,
+        PairListComponent,
+        // RequestResposeOverrideComponent,
+        BindingEventGridComponent  
     ],
     exports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MultiDropDownComponent,
-        TopBarComponent,
-        BusyStateComponent,
-        DropDownComponent,
-        TblComponent,
-        TblThComponent,
-        CommandBarComponent,
-        CommandComponent,
-        CheckScenarioDirective,
-        DynamicLoaderDirective,
-        RadioSelectorComponent,
-        PopOverComponent,
-        TextboxComponent,
-        ClickToEditComponent,
-        CopyPreComponent,
-        // FnWriteAccessDirective,
-        SearchBoxComponent,
-        // EditModeWarningComponent
-        // TryNowBusyStateComponent,
-        // TryNowComponent
+        FnWriteAccessDirective,
+        EditModeWarningComponent,
+        TemplatePickerComponent,
+        BindingComponent,
+        BindingInputComponent,
+        TooltipContentComponent,
+        TooltipDirective,
+        SecretsBoxContainerComponent,
+        SecretsBoxInputDirective,
+        EventHubComponent,
+        ServiceBusComponent,
+        AppSettingComponent,
+        PairListComponent,
+        // RequestResposeOverrideComponent,
+        BindingEventGridComponent
+  
+  
     ],
     imports: [
-        FormsModule,
-        CommonModule,
-        ReactiveFormsModule,
         TranslateModule.forChild(),
+        SharedModule,
+        PopoverModule,
+        
     ]
 })
-export class SharedModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: SharedModule,
-            providers: [
-                ConfigService,
-                FunctionsService,
-                UserService,
-                LanguageService,
-                PortalService,
-                BroadcastService,
-                FunctionMonitorService,
-                LogService,
-                {
-                    provide: ArmService, useFactory: ArmServiceFactory, deps: [
-                        Http,
-                        UserService,
-                        AiService
-                    ]
-                },
-                CacheService,
-                ScenarioService,
-                SlotsService,
-                AuthzService,
-                LocalStorageService,
-                TelemetryService,
-                UtilitiesService,
-                BackgroundTasksService,
-                GlobalStateService,
-                { provide: AiService, useFactory: AiServiceFactory },
-                { provide: ErrorHandler, useClass: GlobalErrorHandler }
-            ]
-        };
-    }
+export class SharedFunctionsModule {
+    // static forRoot(): ModuleWithProviders {
+    //     return {
+    //         ngModule: FunctionsSharedModule,
+    //         providers: []
+    //     };
+    // }
 }
