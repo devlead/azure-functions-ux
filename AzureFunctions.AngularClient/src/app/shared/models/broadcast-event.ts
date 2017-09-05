@@ -1,3 +1,4 @@
+import { FunctionManageComponent } from './../../function-manage/function-manage.component';
 export enum BroadcastEvent {
     FunctionDeleted,
     FunctionAdded,
@@ -18,6 +19,10 @@ export enum BroadcastEvent {
     AppsDashboard,
     AppDashboard,
     FunctionsDashboard,
+    FunctionDashboard,
+    FunctionIntegrateDashboard,
+    FunctionManageDashboard,
+    FunctionMonitorDashboard,
     CreateFunctionAutoDetectDashboard,
     CreateFunctionDashboard,
     CreateFunctionQuickstartDashboard

@@ -1,3 +1,4 @@
+import { SharedFunctionsModule } from './../shared/shared-functions.module';
 import { ConnectionStringsComponent } from './site-config/connection-strings/connection-strings.component';
 import { AppSettingsComponent } from './site-config/app-settings/app-settings.component';
 import { GeneralSettingsComponent } from './site-config/general-settings/general-settings.component';
@@ -42,6 +43,7 @@ const routing: ModuleWithProviders = RouterModule.forChild([
     imports: [
         TranslateModule.forChild(),
         SharedModule,
+        SharedFunctionsModule,
         routing
     ],
     declarations: [
@@ -49,11 +51,12 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         SiteSummaryComponent,
         SiteManageComponent,
         FeatureGroupComponent,
-        FunctionKeysComponent,
+        // FunctionKeysComponent,
         FunctionRuntimeComponent,
         SwaggerDefinitionComponent,
         SwaggerFrameDirective,
         SiteConfigComponent,
+        SiteConfigStandaloneComponent,
         // SiteConfigStandaloneComponent,
         SiteTabComponent,
         DownloadFunctionAppContentComponent,

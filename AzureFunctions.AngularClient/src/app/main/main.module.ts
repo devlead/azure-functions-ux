@@ -25,20 +25,10 @@ const routing: ModuleWithProviders = RouterModule.forChild([
             },
             {
                 path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/functions',
-                loadChildren: 'app/functions-list/functions-list.module#FunctionsListModule'
-            },
-            {
-                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/createfunction',
-                loadChildren: 'app/create-function-wrapper/create-function.module#CreateFunctionModule'
+                loadChildren: 'app/functions.module#FunctionsModule'
             }
-
-
-
-            // { path: '', redirectTo: 'apps', pathMatch: 'full' },
-            // { path: 'apps', component: AppsListComponent }       // TODO: I think this should load a separate module
         ]
-    },
-    // { path: 'apps', loadChildren: 'app/apps-list/apps-list.module#AppsListModule'}
+    }
 ]);
 
 @NgModule({

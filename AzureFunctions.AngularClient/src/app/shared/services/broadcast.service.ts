@@ -62,7 +62,7 @@ export class BroadcastService {
         return emitter.subscribe(callback, errorCallback, completedCallback);
     }
 
-    broadcastReplayEvent<T>(eventType: BroadcastEvent, obj?: T){
+    broadcastReplayEvent<T>(eventType: BroadcastEvent, obj?: T) {
         this.replayEvent.next({
             eventType: eventType,
             obj: obj
@@ -75,7 +75,7 @@ export class BroadcastService {
             .map(e => <T>e.obj);
     }
 
-    broadcastEvent<T>(eventType: BroadcastEvent, obj?: T){
+    broadcastEvent<T>(eventType: BroadcastEvent, obj?: T) {
         this.event.next({
             eventType: eventType,
             obj: obj

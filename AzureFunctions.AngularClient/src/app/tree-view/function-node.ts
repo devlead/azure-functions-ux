@@ -12,7 +12,7 @@ import { FunctionInfo } from '../shared/models/function-info';
 import { Url } from 'app/shared/Utilities/url';
 
 export class FunctionNode extends TreeNode implements CanBlockNavChange, Disposable, CustomSelection {
-    public dashboardType = DashboardType.function;
+    public dashboardType = DashboardType.FunctionDashboard;
     public supportsTab: boolean;
 
     constructor(
@@ -130,7 +130,7 @@ export class FunctionEditBaseNode extends TreeNode implements CanBlockNavChange,
 }
 
 export class FunctionIntegrateNode extends FunctionEditBaseNode {
-    public dashboardType = DashboardType.functionIntegrate;
+    public dashboardType = DashboardType.FunctionIntegrateDashboard;
     public title = this.sideNav.translateService.instant(PortalResources.tabNames_integrate);
 
     constructor(
@@ -148,7 +148,7 @@ export class FunctionIntegrateNode extends FunctionEditBaseNode {
 }
 
 export class FunctionManageNode extends FunctionEditBaseNode implements Removable {
-    public dashboardType = DashboardType.functionManage;
+    public dashboardType = DashboardType.FunctionManageDashboard;
     public title = this.sideNav.translateService.instant(PortalResources.tabNames_manage);;
 
     constructor(
@@ -178,7 +178,7 @@ export class FunctionManageNode extends FunctionEditBaseNode implements Removabl
 }
 
 export class FunctionMonitorNode extends FunctionEditBaseNode {
-    public dashboardType = DashboardType.functionMonitor;
+    public dashboardType = DashboardType.FunctionMonitorDashboard;
     public title = this.sideNav.translateService.instant(PortalResources.tabNames_monitor);;
 
     constructor(

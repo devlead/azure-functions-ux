@@ -1,7 +1,7 @@
+import { PairListComponent } from './../controls/pair-list/pair-list.component';
+import { FunctionKeysComponent } from './../function-keys/function-keys.component';
 import { PopoverModule } from 'ng2-popover';
 import { BindingEventGridComponent } from './../binding-event-grid/binding-event-grid.component';
-import { RequestResposeOverrideComponent } from './../api/request-respose-override/request-respose-override.component';
-import { PairListComponent } from './../controls/pair-list/pair-list.component';
 import { AppSettingComponent } from './../pickers/app-setting/app-setting.component';
 import { ServiceBusComponent } from './../pickers/service-bus/service-bus.component';
 import { EventHubComponent } from './../pickers/event-hub/event-hub.component';
@@ -64,46 +64,16 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
-        FnWriteAccessDirective,
-        EditModeWarningComponent,
-        TemplatePickerComponent,
-        BindingComponent,
-        BindingInputComponent,
-        TooltipContentComponent,
-        TooltipDirective,
-        SecretsBoxContainerComponent,
-        SecretsBoxInputDirective,
-        EventHubComponent,
-        ServiceBusComponent,
-        AppSettingComponent,
-        PairListComponent,
-        // RequestResposeOverrideComponent,
-        BindingEventGridComponent  
+        FunctionKeysComponent,
+        PairListComponent
     ],
     exports: [
-        FnWriteAccessDirective,
-        EditModeWarningComponent,
-        TemplatePickerComponent,
-        BindingComponent,
-        BindingInputComponent,
-        TooltipContentComponent,
-        TooltipDirective,
-        SecretsBoxContainerComponent,
-        SecretsBoxInputDirective,
-        EventHubComponent,
-        ServiceBusComponent,
-        AppSettingComponent,
-        PairListComponent,
-        // RequestResposeOverrideComponent,
-        BindingEventGridComponent
-  
-  
+        FunctionKeysComponent,
+        PairListComponent
     ],
     imports: [
         TranslateModule.forChild(),
         SharedModule,
-        PopoverModule,
-        
     ]
 })
 export class SharedFunctionsModule {

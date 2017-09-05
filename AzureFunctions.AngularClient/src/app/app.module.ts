@@ -21,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 
 import { TranslateModule } from '@ngx-translate/core';
-import { FileUploadModule } from 'ng2-file-upload';
+// import { FileUploadModule } from 'ng2-file-upload';
 import { PopoverModule } from 'ng2-popover';
 
 import { ConfigService } from './shared/services/config.service';
@@ -64,7 +64,7 @@ import { ErrorListComponent } from './error-list/error-list.component';
 import { BindingDesignerComponent } from './binding-designer/binding-designer.component';
 // import { SecretsBoxContainerComponent } from './secrets-box-container/secrets-box-container.component';
 // import { SecretsBoxInputDirective } from './secrets-box-container/secrets-box-input.directive';
-import { AggregateBlockComponent } from './aggregate-block/aggregate-block.component';
+// import { AggregateBlockComponent } from './aggregate-block/aggregate-block.component';
 // import { CopyPreComponent } from './copy-pre/copy-pre.component';
 // import { FileExplorerComponent } from './file-explorer/file-explorer.component';
 // import { FunctionIntegrateV2Component } from './function-integrate-v2/function-integrate-v2.component';
@@ -72,14 +72,14 @@ import { AggregateBlockComponent } from './aggregate-block/aggregate-block.compo
 // import { FunctionKeysComponent } from './function-keys/function-keys.component';
 // import { FunctionManageComponent } from './function-manage/function-manage.component';
 // import { FunctionMonitorComponent } from './function-monitor/function-monitor.component';
-import { LogStreamingComponent } from './log-streaming/log-streaming.component';
+// import { LogStreamingComponent } from './log-streaming/log-streaming.component';
 // import { RadioSelectorComponent } from './radio-selector/radio-selector.component';
 import { RunHttpComponent } from './run-http/run-http.component';
 // import { TableFunctionMonitorComponent } from './table-function-monitor/table-function-monitor.component';
 import { TryLandingComponent } from './try-landing/try-landing.component';
-import { AggregateBlockPipe } from './aggregate-block/aggregate-block.pipe';
-import { MonacoEditorDirective } from './shared/directives/monaco-editor.directive';
-import { TableFunctionMonitorPipe } from './table-function-monitor/table-function-monitor.pipe';
+// import { AggregateBlockPipe } from './aggregate-block/aggregate-block.pipe';
+// import { MonacoEditorDirective } from './shared/directives/monaco-editor.directive';
+// import { TableFunctionMonitorPipe } from './table-function-monitor/table-function-monitor.pipe';
 // import { MainComponent } from './main/main.component';
 // import { SideNavComponent } from './side-nav/side-nav.component';
 // import { TreeViewComponent } from './tree-view/tree-view.component';
@@ -155,18 +155,18 @@ export class AppModule {
       BindingDesignerComponent,
       // SecretsBoxContainerComponent,
       // SecretsBoxInputDirective,
-      AggregateBlockComponent,
+      // AggregateBlockComponent,
       // FileExplorerComponent,
       // FunctionIntegrateV2Component,
       // FunctionIntegrateComponent,
       // FunctionMonitorComponent,
-      LogStreamingComponent,
+      // LogStreamingComponent,
       // RunHttpComponent,
       // TableFunctionMonitorComponent,
       TryLandingComponent,
-      AggregateBlockPipe,
-      MonacoEditorDirective,
-      TableFunctionMonitorPipe,
+      // AggregateBlockPipe,
+      // MonacoEditorDirective,
+      // TableFunctionMonitorPipe,
       TabsComponent,
       TabComponent,
       BreadcrumbsComponent,
@@ -199,7 +199,7 @@ export class AppModule {
       // FormsModule,
       HttpModule,
       TranslateModule.forRoot(),
-      FileUploadModule,
+      // FileUploadModule,
       PopoverModule,
       appRouting
     ],
