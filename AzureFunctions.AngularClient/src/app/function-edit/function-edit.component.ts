@@ -21,7 +21,7 @@ import { FunctionNode } from '../tree-view/function-node';
     templateUrl: './function-edit.component.html',
     styleUrls: ['./function-edit.component.css'],
 })
-export class FunctionEditComponent implements OnInit, OnDestroy {
+export class FunctionEditComponent implements OnDestroy {
 
     @ViewChild(FunctionDevComponent) functionDevComponent: FunctionDevComponent;
     public selectedFunction: FunctionInfo;
@@ -71,9 +71,7 @@ export class FunctionEditComponent implements OnInit, OnDestroy {
                     this.tabId = segments[segments.length - 1];
                 }
             });
-    }
 
-    ngOnInit() {
         this._broadcastService.getReplayEvents<TreeViewInfo<any>>(BroadcastEvent.FunctionDashboard)
             .takeUntil(this._ngUnsubscribe)
             .subscribe(info => {

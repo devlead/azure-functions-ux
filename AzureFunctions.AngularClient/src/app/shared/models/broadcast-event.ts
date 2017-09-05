@@ -25,7 +25,10 @@ export enum BroadcastEvent {
     FunctionMonitorDashboard,
     CreateFunctionAutoDetectDashboard,
     CreateFunctionDashboard,
-    CreateFunctionQuickstartDashboard
+    CreateFunctionQuickstartDashboard,
+    CreateProxyDashboard,
+    ProxiesDashboard,
+    ProxyDashboard
 }
 
 export interface DirtyStateEvent {

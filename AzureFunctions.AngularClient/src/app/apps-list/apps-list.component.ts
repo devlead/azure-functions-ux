@@ -29,8 +29,7 @@ interface AppTableItem extends TableItem {
   templateUrl: './apps-list.component.html',
   styleUrls: ['./apps-list.component.scss'],
 })
-export class AppsListComponent implements OnInit, OnDestroy {
-  public viewInfoStream: Subject<TreeViewInfo<any>>;
+export class AppsListComponent implements OnDestroy {
   public apps: AppNode[] = [];
   public tableItems: TableItem[] = [];
   public appsNode: AppsNode;
@@ -68,9 +67,7 @@ export class AppsListComponent implements OnInit, OnDestroy {
     public broadcastService: BroadcastService,
     public route: ActivatedRoute) {
 
-    this.viewInfoStream = new Subject<TreeViewInfo<any>>();
-
-    this.viewInfoStream
+    this.broadcastService.getReplayEvents<TreeViewInfo<SiteData>>(BroadcastEvent.AppsDashboard)
       .takeUntil(this._ngUnsubscribe)
       .distinctUntilChanged()
       .switchMap(viewInfo => {
@@ -101,18 +98,6 @@ export class AppsListComponent implements OnInit, OnDestroy {
             value: resourceGroup
           }));
       });
-  }
-
-  ngOnInit() {
-    this.broadcastService.getReplayEvents<TreeViewInfo<SiteData>>(BroadcastEvent.AppsDashboard)
-      .takeUntil(this._ngUnsubscribe)
-      .subscribe(viewInfo => {
-        this.viewInfoStream.next(viewInfo);
-      });
-
-    // this.route.params.subscribe(params => {
-    //   console.log('init');
-    // })
   }
 
   ngOnDestroy(): void {

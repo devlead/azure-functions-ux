@@ -51,8 +51,8 @@ import { DropDownComponent } from './drop-down/drop-down.component';
 import { TrialExpiredComponent } from './trial-expired/trial-expired.component';
 // import { FunctionNewComponent } from './function-new/function-new.component';
 // import { FunctionQuickstartComponent } from './function-quickstart/function-quickstart.component';
-import { TutorialComponent } from './tutorial/tutorial.component';
-import { SourceControlComponent } from './source-control/source-control.component';
+// import { TutorialComponent } from './tutorial/tutorial.component';
+// import { SourceControlComponent } from './source-control/source-control.component';
 // import { FunctionDevComponent } from './function-dev/function-dev.component';
 // import { BindingComponent } from './binding/binding.component';
 // import { TooltipContentComponent } from './tooltip-content/tooltip-content.component';
@@ -61,7 +61,7 @@ import { ErrorListComponent } from './error-list/error-list.component';
 // import { TemplatePickerComponent } from './template-picker/template-picker.component';
 // import { PopOverComponent } from './pop-over/pop-over.component';
 // import { BindingInputComponent } from './binding-input/binding-input.component';
-import { BindingDesignerComponent } from './binding-designer/binding-designer.component';
+// import { BindingDesignerComponent } from './binding-designer/binding-designer.component';
 // import { SecretsBoxContainerComponent } from './secrets-box-container/secrets-box-container.component';
 // import { SecretsBoxInputDirective } from './secrets-box-container/secrets-box-input.directive';
 // import { AggregateBlockComponent } from './aggregate-block/aggregate-block.component';
@@ -74,7 +74,7 @@ import { BindingDesignerComponent } from './binding-designer/binding-designer.co
 // import { FunctionMonitorComponent } from './function-monitor/function-monitor.component';
 // import { LogStreamingComponent } from './log-streaming/log-streaming.component';
 // import { RadioSelectorComponent } from './radio-selector/radio-selector.component';
-import { RunHttpComponent } from './run-http/run-http.component';
+// import { RunHttpComponent } from './run-http/run-http.component';
 // import { TableFunctionMonitorComponent } from './table-function-monitor/table-function-monitor.component';
 import { TryLandingComponent } from './try-landing/try-landing.component';
 // import { AggregateBlockPipe } from './aggregate-block/aggregate-block.pipe';
@@ -84,22 +84,19 @@ import { TryLandingComponent } from './try-landing/try-landing.component';
 // import { SideNavComponent } from './side-nav/side-nav.component';
 // import { TreeViewComponent } from './tree-view/tree-view.component';
 // import { SiteDashboardComponent } from './site/site-dashboard/site-dashboard.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { TabComponent } from './tab/tab.component';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+// import { TabsComponent } from './tabs/tabs.component';
+// import { TabComponent } from './tab/tab.component';
+// import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 // import { SiteSummaryComponent } from './site/site-summary/site-summary.component';
 // import { SiteEnabledFeaturesComponent } from './site/site-enabled-features/site-enabled-features.component';
 // import { SiteManageComponent } from './site/site-manage/site-manage.component';
 // import { FeatureGroupComponent } from './feature-group/feature-group.component';
-import { DeploymentSourceComponent } from './site/deployment-source/deployment-source.component';
-import { DeploymentSourceSetupComponent } from './site/deployment-source-setup/deployment-source-setup.component';
+// import { DeploymentSourceComponent } from './site/deployment-source/deployment-source.component';
+// import { DeploymentSourceSetupComponent } from './site/deployment-source-setup/deployment-source-setup.component';
 // import { MultiDropDownComponent } from './multi-drop-down/multi-drop-down.component';
 import { TopRightMenuComponent } from './top-right-menu/top-right-menu.component';
 // import { FunctionRuntimeComponent } from './site/function-runtime/function-runtime.component';
-import { ApiDetailsComponent } from './api/api-details/api-details.component';
-import { ApiNewComponent } from './api/api-new/api-new.component';
 // import { FunctionsListComponent } from './functions-list/functions-list.component';
-import { ProxiesListComponent } from './proxies-list/proxies-list.component';
 import { DisabledDashboardComponent } from './disabled-dashboard/disabled-dashboard.component';
 import { CreateFunctionWrapperComponent } from './create-function-wrapper/create-function-wrapper.component';
 // import { SwaggerDefinitionComponent } from './site/swagger-definition/swagger-definition.component';
@@ -144,15 +141,14 @@ export class AppModule {
       TrialExpiredComponent,
       // FunctionNewComponent,
       // FunctionQuickstartComponent,
-      TutorialComponent,
-      SourceControlComponent,
+      // TutorialComponent,
+      // SourceControlComponent,
       // BindingComponent,
       // TooltipContentComponent,
       // TooltipDirective,
       ErrorListComponent,
       // TemplatePickerComponent,
       // BindingInputComponent,
-      BindingDesignerComponent,
       // SecretsBoxContainerComponent,
       // SecretsBoxInputDirective,
       // AggregateBlockComponent,
@@ -167,22 +163,21 @@ export class AppModule {
       // AggregateBlockPipe,
       // MonacoEditorDirective,
       // TableFunctionMonitorPipe,
-      TabsComponent,
-      TabComponent,
-      BreadcrumbsComponent,
-      DeploymentSourceComponent,
-      DeploymentSourceSetupComponent,
+      // TabsComponent,
+      // TabComponent,
+      // BreadcrumbsComponent,
+      // DeploymentSourceComponent,
+      // DeploymentSourceSetupComponent,
       TopRightMenuComponent,
       // ApiDetailsComponent,
       // ApiNewComponent,
-      ProxiesListComponent,
+      // ProxiesListComponent,
       SlotsListComponent,
       DisabledDashboardComponent,
       // CreateFunctionWrapperComponent,
       // FnWriteAccessDirective,
       // EditModeWarningComponent,
       CreateAppComponent,
-      SlotsListComponent,
       SlotNewComponent,
       // EventHubComponent,
       // ServiceBusComponent,

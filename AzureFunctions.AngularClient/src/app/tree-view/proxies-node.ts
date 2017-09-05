@@ -1,3 +1,5 @@
+import { PortalResources } from './../shared/models/portal-resources';
+import { inject } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
@@ -9,24 +11,27 @@ import { AppNode } from './app-node';
 import { TreeNode, MutableCollection, Disposable, CustomSelection, Collection } from './tree-node';
 import { SideNavComponent } from '../side-nav/side-nav.component';
 import { DashboardType } from './models/dashboard-type';
-import { PortalResources } from '../shared/models/portal-resources';
 import { ApiProxy } from '../shared/models/api-proxy';
 import { ProxyNode } from './proxy-node';
 import { FunctionApp } from '../shared/function-app';
 
 export class ProxiesNode extends TreeNode implements MutableCollection, Disposable, CustomSelection, Collection {
-    public title = 'Proxies (preview)';
-    public dashboardType = DashboardType.proxies;
-    public newDashboardType = DashboardType.createProxy;
+    public title = this.sideNav.translateService.instant(PortalResources.appFunctionSettings_apiProxies);
+    public dashboardType = DashboardType.ProxiesDashboard;
+    public newDashboardType = DashboardType.CreateProxyDashboard;
     public nodeClass = 'tree-node collection-node';
 
     constructor(
         sideNav: SideNavComponent,
         public functionApp: FunctionApp,
         parentNode: TreeNode) {
-        super(sideNav, functionApp.site.id + '/proxies', parentNode);
 
-        this.iconClass = 'tree-node-collection-icon'
+        super(sideNav,
+            functionApp.site.id + '/proxies',
+            parentNode,
+            functionApp.site.id + '/proxies/new/proxy');
+
+        this.iconClass = 'tree-node-collection-icon';
         this.iconUrl = 'images/BulletList.svg';
     }
 
@@ -93,7 +98,7 @@ export class ProxiesNode extends TreeNode implements MutableCollection, Disposab
 
     private _updateTreeForStartedSite() {
         this.title = this.sideNav.translateService.instant(PortalResources.appFunctionSettings_apiProxies);
-        this.newDashboardType = DashboardType.createProxy;
+        this.newDashboardType = DashboardType.CreateProxyDashboard;
         this.showExpandIcon = true;
 
         if (this.parent.inSelectedTree) {

@@ -1,3 +1,4 @@
+import { MonacoEditorDirective } from './directives/monaco-editor.directive';
 import { PairListComponent } from './../controls/pair-list/pair-list.component';
 import { FunctionKeysComponent } from './../function-keys/function-keys.component';
 import { PopoverModule } from 'ng2-popover';
@@ -65,15 +66,21 @@ import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
     declarations: [
         FunctionKeysComponent,
-        PairListComponent
+        PairListComponent,
+        EditModeWarningComponent,
+        FnWriteAccessDirective,
+        MonacoEditorDirective,
     ],
     exports: [
         FunctionKeysComponent,
-        PairListComponent
+        PairListComponent,
+        EditModeWarningComponent,
+        FnWriteAccessDirective,
+        MonacoEditorDirective
     ],
     imports: [
         TranslateModule.forChild(),
-        SharedModule,
+        SharedModule
     ]
 })
 export class SharedFunctionsModule {

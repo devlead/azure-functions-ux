@@ -16,9 +16,9 @@ export enum DashboardType {
     FunctionIntegrateDashboard,
     FunctionManageDashboard,
     FunctionMonitorDashboard,
-    createProxy,
-    proxies,
-    proxy,
+    CreateProxyDashboard,
+    ProxiesDashboard,
+    ProxyDashboard,
     slots,
     createSlot
 }

@@ -25,8 +25,7 @@ import { ErrorType, ErrorEvent } from 'app/shared/models/error-event';
     templateUrl: './functions-list.component.html',
     styleUrls: ['./functions-list.component.scss']
 })
-export class FunctionsListComponent implements OnInit, OnDestroy {
-    public viewInfoStream: Subject<TreeViewInfo<any>>;
+export class FunctionsListComponent implements OnDestroy {
     public functions: FunctionNode[] = [];
     public isLoading: boolean;
     public functionApp: FunctionApp;
@@ -40,8 +39,8 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
         private _translateService: TranslateService,
         private _broadcastService: BroadcastService
     ) {
-        this.viewInfoStream = new Subject<TreeViewInfo<any>>();
-        this.viewInfoStream
+        this._broadcastService.getReplayEvents<TreeViewInfo<void>>(BroadcastEvent.FunctionsDashboard)
+        .takeUntil(this._ngUnsubscribe)
             .takeUntil(this._ngUnsubscribe)
             .distinctUntilChanged()
             .switchMap(viewInfo => {
@@ -54,14 +53,6 @@ export class FunctionsListComponent implements OnInit, OnDestroy {
             .subscribe(() => {
                 this.isLoading = false;
                 this.functions = (<FunctionNode[]>this._functionsNode.children);
-            });
-    }
-
-    ngOnInit() {
-        this._broadcastService.getReplayEvents<TreeViewInfo<void>>(BroadcastEvent.FunctionsDashboard)
-            .takeUntil(this._ngUnsubscribe)
-            .subscribe(viewInfo => {
-                this.viewInfoStream.next(viewInfo);
             });
     }
 

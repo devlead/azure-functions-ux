@@ -26,7 +26,7 @@ import { FunctionManageComponent } from './function-manage/function-manage.compo
 import { FunctionIntegrateV2Component } from './function-integrate-v2/function-integrate-v2.component';
 import { FunctionIntegrateComponent } from './function-integrate/function-integrate.component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { MonacoEditorDirective } from './shared/directives/monaco-editor.directive';
+// import { MonacoEditorDirective } from './shared/directives/monaco-editor.directive';
 import { FileExplorerComponent } from './file-explorer/file-explorer.component';
 import { LogStreamingComponent } from './log-streaming/log-streaming.component';
 import { SharedFunctionsModule } from './shared/shared-functions.module';
@@ -84,7 +84,6 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         FunctionDevComponent,
         LogStreamingComponent,
         FileExplorerComponent,
-        MonacoEditorDirective,
         FunctionIntegrateComponent,
         FunctionIntegrateV2Component,
         FunctionManageComponent,
@@ -92,8 +91,6 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         CreateFunctionWrapperComponent,
         FunctionNewComponent,
         FunctionQuickstartComponent,
-        FnWriteAccessDirective,
-        EditModeWarningComponent,
         TemplatePickerComponent,
         BindingComponent,
         BindingInputComponent,

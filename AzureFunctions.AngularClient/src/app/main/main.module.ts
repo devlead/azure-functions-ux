@@ -26,6 +26,10 @@ const routing: ModuleWithProviders = RouterModule.forChild([
             {
                 path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/functions',
                 loadChildren: 'app/functions.module#FunctionsModule'
+            },
+            {
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/proxies',
+                loadChildren: 'app/proxies.module#ProxiesModule'
             }
         ]
     }
