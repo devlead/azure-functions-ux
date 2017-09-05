@@ -1,13 +1,21 @@
+import { SlotNewComponent } from './../slot-new/slot-new.component';
 import { SlotsListComponent } from './../slots-list/slots-list.component';
 import { SharedModule } from './../shared/shared.module';
-import { AppsListComponent } from './apps-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
 const routing: ModuleWithProviders = RouterModule.forChild([
-    { path: '', component: AppsListComponent }
+    {
+        path: '',
+        component: SlotsListComponent,
+        pathMatch: 'full'
+    },
+    {
+        path: 'new/slot',
+        component: SlotNewComponent
+    }
 ]);
 
 @NgModule({
@@ -17,8 +25,9 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         routing
     ],
     declarations: [
-        AppsListComponent
+        SlotsListComponent,
+        SlotNewComponent
     ],
     providers: []
 })
-export class AppsListModule { }
+export class SlotsListModule { }

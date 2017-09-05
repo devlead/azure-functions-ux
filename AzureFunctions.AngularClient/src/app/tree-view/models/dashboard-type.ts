@@ -19,6 +19,6 @@ export enum DashboardType {
     CreateProxyDashboard,
     ProxiesDashboard,
     ProxyDashboard,
-    slots,
-    createSlot
+    SlotsDashboard,
+    CreateSlotDashboard
 }

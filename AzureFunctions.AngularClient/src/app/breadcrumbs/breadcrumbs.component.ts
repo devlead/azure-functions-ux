@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 
 import { TreeViewInfo } from '../tree-view/models/tree-view-info';
 
-@Component({
-    selector: 'breadcrumbs',
-    templateUrl: './breadcrumbs.component.html',
-    styleUrls: ['./breadcrumbs.component.scss'],
-    inputs: ['viewInfoInput']
-})
+// @Component({
+//     selector: 'breadcrumbs',
+//     templateUrl: './breadcrumbs.component.html',
+//     styleUrls: ['./breadcrumbs.component.scss'],
+//     inputs: ['viewInfoInput']
+// })
 export class BreadcrumbsComponent {
     public path: string;
 

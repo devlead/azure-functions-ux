@@ -1,3 +1,4 @@
+import { EmptyDashboardComponent } from './empty-dashboard.component';
 import { MainLoadingComponent } from './main-loading.component';
 import { Routes, RouterModule } from '@angular/router';
 import { TreeViewComponent } from './../tree-view/tree-view.component';
@@ -16,6 +17,10 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         path: '', component: MainComponent,
         children: [
             {
+                path: 'blank',
+                component: EmptyDashboardComponent,
+            },
+            {
                 path: 'apps',
                 loadChildren: 'app/apps-list/apps-list.module#AppsListModule'
             },
@@ -29,6 +34,22 @@ const routing: ModuleWithProviders = RouterModule.forChild([
             },
             {
                 path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/proxies',
+                loadChildren: 'app/proxies.module#ProxiesModule'
+            },
+            {
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/slots',
+                loadChildren: 'app/slots-list/slots-list.module#SlotsListModule'
+            },
+            {
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/slots/:slot',
+                loadChildren: 'app/site/site.module#SiteModule'
+            },
+            {
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/slots/:slot/functions',
+                loadChildren: 'app/functions.module#FunctionsModule'
+            },
+            {
+                path: 'subscriptions/:subscriptionId/resourcegroups/:resourceGroup/sites/:site/slots/:slot/proxies',
                 loadChildren: 'app/proxies.module#ProxiesModule'
             }
         ]
@@ -46,6 +67,7 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         MainComponent,
         SideNavComponent,
         TreeViewComponent,
+        EmptyDashboardComponent
         // SiteDashboardComponent
         // AppsListComponent
         // MultiDropDownComponent

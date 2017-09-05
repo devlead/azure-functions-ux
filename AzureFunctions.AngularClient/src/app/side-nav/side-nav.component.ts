@@ -320,8 +320,7 @@ export class SideNavComponent implements AfterViewInit {
         // We only want to clear the view if the user is currently looking at something
         // under the tree path being deleted
         if (this.resourceId.startsWith(resourceId)) {
-            // TODO: need to handle clearing view.
-            // this.treeViewInfoEvent.emit(null);
+            this.router.navigate(['blank'], { relativeTo: this.route });
         }
     }
 
