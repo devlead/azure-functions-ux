@@ -1,4 +1,7 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BroadcastService } from './../shared/services/broadcast.service';
+import { StartupInfo } from './../shared/models/portal';
+import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { Response, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -33,8 +36,8 @@ import { AiService } from '../shared/services/ai.service';
     styleUrls: ['./getting-started.component.scss']
 })
 
-export class GettingStartedComponent implements OnInit {
-    @Output() userReady: EventEmitter<FunctionContainer>;
+export class GettingStartedComponent implements OnInit, OnDestroy {
+    // @Output() userReady: EventEmitter<FunctionContainer>;
 
     public geoRegions: DropDownElement<string>[];
     public subscriptions: DropDownElement<Subscription>[];
@@ -49,6 +52,9 @@ export class GettingStartedComponent implements OnInit {
 
     public user: User;
 
+    private _ngUnsubscribe = new Subject();
+    private _startupInfo: StartupInfo;
+
     private functionContainer: FunctionContainer;
     constructor(
         private _userService: UserService,
@@ -57,13 +63,15 @@ export class GettingStartedComponent implements OnInit {
         private _globalStateService: GlobalStateService,
         private _translateService: TranslateService,
         private _aiService: AiService,
-        private _http: Http
+        private _http: Http,
+        private _broadcastService: BroadcastService,
+        private _router: Router
     ) {
         this.isValidContainerName = true;
         // http://stackoverflow.com/a/8084248/3234163
         this.functionContainerName = `functions${this.makeId()}`;
         this.functionContainers = [];
-        this.userReady = new EventEmitter<FunctionContainer>();
+        // this.userReady = new EventEmitter<FunctionContainer>();
         this.geoRegions = [];
         this.functionContainerNameEvent = new EventEmitter<string>();
         this.functionContainerNameEvent
@@ -78,10 +86,12 @@ export class GettingStartedComponent implements OnInit {
         this._globalStateService.setBusyState();
 
         Observable.zip(
-            this._userService.getStartupInfo(),
-            this._userService.getUser(),
+            this._userService.getStartupInfo().takeUntil(this._ngUnsubscribe),
+            this._userService.getUser().takeUntil(this._ngUnsubscribe),
             (i, u) => ({ info: i, user: u }))
             .subscribe(r => {
+                this._startupInfo = r.info;
+
                 this.subscriptions = r.info.subscriptions
                     .map(e => ({ displayLabel: e.displayName, value: e }))
                     .sort((a, b) => a.displayLabel.localeCompare(b.displayLabel));
@@ -91,13 +101,18 @@ export class GettingStartedComponent implements OnInit {
             });
     }
 
+    ngOnDestroy() {
+        this._ngUnsubscribe.next();
+    }
+
     createFunctionsContainer() {
         delete this.createError;
         this._globalStateService.setBusyState();
         this._telemetryService.track('gettingstarted-create-functionapp');
         this._createFunctionContainerHelper(this.selectedSubscription.subscriptionId, this.selectedGeoRegion, this.functionContainerName)
             .subscribe(r => {
-                this.userReady.emit(r);
+                // this.userReady.emit(r);
+                this._initializeDashboard(r);
                 this._globalStateService.clearBusyState();
             });
     }
@@ -141,7 +156,8 @@ export class GettingStartedComponent implements OnInit {
 
     openSelectedContainer() {
         this._warmUpFunctionApp(this.functionContainer.id);
-        this.userReady.emit(this.functionContainer);
+        // this.userReady.emit(this.functionContainer);
+        this._initializeDashboard(this.functionContainer);
     }
 
     login() {
@@ -172,6 +188,58 @@ export class GettingStartedComponent implements OnInit {
         } else {
             return this._validateSiteNameAvailable(this.selectedSubscription.subscriptionId, name)
                 .map(v => ({ isValid: v, reason: this._translateService.instant(PortalResources.gettingStarted_validateContainer4, { funcName: name }) }));
+        }
+    }
+
+    private _initializeDashboard(functionContainer: FunctionContainer | string) {
+
+        if (this._redirectToIbizaIfNeeded(functionContainer)) {
+            return;
+        }
+
+        if (typeof functionContainer !== 'string') {
+            this._broadcastService.clearAllDirtyStates();
+
+            if (this._startupInfo) {
+                this._startupInfo.resourceId = functionContainer && functionContainer.id;
+                this._userService.updateStartupInfo(this._startupInfo);
+            }
+
+            this._router.navigate(['/main/apps']);
+        }
+    }
+
+    private _redirectToIbizaIfNeeded(functionContainer: FunctionContainer | string): boolean {
+        if (!this._userService.inIFrame &&
+            // this._configService.isAzure() &&
+            window.location.hostname !== 'localhost' &&
+            window.location.search.indexOf('ibiza=disabled') === -1) {
+
+            const armId = typeof functionContainer === 'string' ? functionContainer : functionContainer.id;
+            this._globalStateService.setBusyState();
+            this._userService.getTenants()
+                .retry(10)
+                .subscribe(tenants => {
+                    const currentTenant = tenants.find(t => t.Current);
+                    const portalHostName = 'https://portal.azure.com';
+                    let environment = '';
+                    if (window.location.host.indexOf('staging') !== -1) {
+                        // Temporarily redirecting FunctionsNext to use the Canary Ibiza environment.
+                        environment = '?feature.fastmanifest=false&appsvc.env=stage';
+                        // environment = '?websitesextension_functionsstaged=true';
+
+                    } else if (window.location.host.indexOf('next') !== -1) {
+
+                        // Temporarily redirecting FunctionsNext to use the Canary Ibiza environment.
+                        environment = '?feature.canmodifystamps=true&BizTalkExtension=canary&WebsitesExtension=canary&feature.fastmanifest=false&appsvc.env=next';
+                        // environment = '?websitesextension_functionsnext=true';
+                    }
+
+                    window.location.replace(`${portalHostName}/${currentTenant.DomainName}${environment}#resource${armId}`);
+                });
+            return true;
+        } else {
+            return false;
         }
     }
 

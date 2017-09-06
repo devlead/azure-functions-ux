@@ -9,7 +9,6 @@ import { SideNavComponent } from './../side-nav/side-nav.component';
 import { SharedModule } from './../shared/shared.module';
 import { MainComponent } from './main.component';
 import { AppsListComponent } from './../apps-list/apps-list.component';
-// import { mainRouting } from './main.routing';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
 const routing: ModuleWithProviders = RouterModule.forChild([
@@ -68,11 +67,6 @@ const routing: ModuleWithProviders = RouterModule.forChild([
         SideNavComponent,
         TreeViewComponent,
         EmptyDashboardComponent
-        // SiteDashboardComponent
-        // AppsListComponent
-        // MultiDropDownComponent
-        // SearchBoxComponent,
-        // MultiDropDownComponent
     ],
     providers: []
 })

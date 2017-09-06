@@ -17,14 +17,13 @@ import { Router, ActivatedRoute } from '@angular/router';
     templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, AfterViewInit {
-    public gettingStarted: boolean;
-    public ready: boolean;
+    // public gettingStarted: boolean;
+    // public ready: boolean;
     public showTryLanding: boolean;
     public tryFunctionApp: FunctionApp;
 
     private _startupInfo: StartupInfo;
     @ViewChild(BusyStateComponent) busyStateComponent: BusyStateComponent;
-    private _originalRoute: string;
 
     constructor(
         private _configService: ConfigService,
@@ -38,112 +37,42 @@ export class AppComponent implements OnInit, AfterViewInit {
         private _router: Router,
         route: ActivatedRoute
     ) {
-        this.ready = false;
+        // this.ready = false;
 
-        const url = [location.protocol, '//', location.host, location.pathname].join('');
-        
-        // TODO: grab this from config somehow
-        const baseHref = '/ng-full';
+        // this._router.navigate(['']);
+        // this._globalStateService.setBusyState();
 
-        // TODO: also this logic won't work if baseHref is just '/'
-        this._originalRoute = url.split(baseHref)[1];
+        // TODO: for now we don't honor any deep links.  We'll need to make a bunch of updates to our
+        // tree logic in order to get it working properly
+        if (!this._userService.inIFrame && window.location.protocol !== 'http:' && !this._userService.inTab) {
+            this._router.navigate(['/landing']);
+        } else {
+            this._router.navigate(['/main/apps']);
+        }
 
-        this._router.navigate(['']);
-        this._globalStateService.setBusyState();
 
         this.showTryLanding = window.location.pathname.endsWith('/try');
 
-        if (_userService.inIFrame || window.location.protocol === 'http:' || _userService.inTab) {
-            this.gettingStarted = false;
-            return;
-        } else {
-            this.gettingStarted = true;
-        }
+        // if (_userService.inIFrame || window.location.protocol === 'http:' || _userService.inTab) {
+        //     this.gettingStarted = false;
+        //     return;
+        // } else {
+        //     this.gettingStarted = true;
+        // }
     }
 
     ngOnInit() {
-        this._userService.getStartupInfo()
-            .first()
-            .subscribe(info => {
-                this._startupInfo = info;
-                this.ready = true;
-
-                this._router.navigate([!this._originalRoute || this._originalRoute === '/' ? '/main/apps' : this._originalRoute]);
-                this._globalStateService.clearBusyState();
-
-                if (!this._userService.inIFrame) {
-                    this.ready = true;
-
-                    if (this._configService.isStandalone()) {
-                        this.initializeDashboard(null);
-                    }
-                }
-            });
     }
 
     ngAfterViewInit() {
         this._globalStateService.GlobalBusyStateComponent = this.busyStateComponent;
     }
 
-    initializeDashboard(functionContainer: FunctionContainer | string) {
-        this._globalStateService.setBusyState();
-
-        if (this.redirectToIbizaIfNeeded(functionContainer)) {
-            return;
-        }
-
-        if (typeof functionContainer !== 'string') {
-            this._broadcastService.clearAllDirtyStates();
-
-            if (this._startupInfo) {
-                this._startupInfo.resourceId = functionContainer && functionContainer.id;
-                this._userService.updateStartupInfo(this._startupInfo);
-            }
-
-            this.gettingStarted = false;
-            this.showTryLanding = false;
-        }
-    }
-
     initializeTryDashboard(functionApp: FunctionApp) {
         this._globalStateService.setBusyState();
         this._broadcastService.clearAllDirtyStates();
-        this.gettingStarted = false;
+        // this.gettingStarted = false;
         this.showTryLanding = false;
         this.tryFunctionApp = functionApp;
-    }
-
-    private redirectToIbizaIfNeeded(functionContainer: FunctionContainer | string): boolean {
-        if (!this._userService.inIFrame &&
-            this._configService.isAzure() &&
-            window.location.hostname !== 'localhost' &&
-            window.location.search.indexOf('ibiza=disabled') === -1) {
-
-            const armId = typeof functionContainer === 'string' ? functionContainer : functionContainer.id;
-            this._globalStateService.setBusyState();
-            this._userService.getTenants()
-                .retry(10)
-                .subscribe(tenants => {
-                    const currentTenant = tenants.find(t => t.Current);
-                    const portalHostName = 'https://portal.azure.com';
-                    let environment = '';
-                    if (window.location.host.indexOf('staging') !== -1) {
-                        // Temporarily redirecting FunctionsNext to use the Canary Ibiza environment.
-                        environment = '?feature.fastmanifest=false&appsvc.env=stage';
-                        // environment = '?websitesextension_functionsstaged=true';
-
-                    } else if (window.location.host.indexOf('next') !== -1) {
-
-                        // Temporarily redirecting FunctionsNext to use the Canary Ibiza environment.
-                        environment = '?feature.canmodifystamps=true&BizTalkExtension=canary&WebsitesExtension=canary&feature.fastmanifest=false&appsvc.env=next';
-                        // environment = '?websitesextension_functionsnext=true';
-                    }
-
-                    window.location.replace(`${portalHostName}/${currentTenant.DomainName}${environment}#resource${armId}`);
-                });
-            return true;
-        } else {
-            return false;
-        }
     }
 }

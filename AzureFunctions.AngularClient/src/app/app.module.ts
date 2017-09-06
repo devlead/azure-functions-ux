@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 import { InitialLoadingComponent } from './initial-loading.component';
 import { appRouting } from './app.routing';
@@ -42,72 +43,15 @@ import { AiService } from './shared/services/ai.service';
 import { LanguageService } from './shared/services/language.service';
 
 import { AppComponent } from './app.component';
-import { GettingStartedComponent } from './getting-started/getting-started.component';
 // import { TryNowBusyStateComponent } from './try-now-busy-state/try-now-busy-state.component';
 // import { TopBarComponent } from './top-bar/top-bar.component';
 import { DropDownComponent } from './drop-down/drop-down.component';
-// import { TryNowComponent } from './try-now/try-now.component';
-// import { FunctionEditComponent } from './function-edit/function-edit.component';
 import { TrialExpiredComponent } from './trial-expired/trial-expired.component';
-// import { FunctionNewComponent } from './function-new/function-new.component';
-// import { FunctionQuickstartComponent } from './function-quickstart/function-quickstart.component';
-// import { TutorialComponent } from './tutorial/tutorial.component';
-// import { SourceControlComponent } from './source-control/source-control.component';
-// import { FunctionDevComponent } from './function-dev/function-dev.component';
-// import { BindingComponent } from './binding/binding.component';
-// import { TooltipContentComponent } from './tooltip-content/tooltip-content.component';
-// import { TooltipDirective } from './tooltip-content/tooltip.directive';
 import { ErrorListComponent } from './error-list/error-list.component';
-// import { TemplatePickerComponent } from './template-picker/template-picker.component';
-// import { PopOverComponent } from './pop-over/pop-over.component';
-// import { BindingInputComponent } from './binding-input/binding-input.component';
-// import { BindingDesignerComponent } from './binding-designer/binding-designer.component';
-// import { SecretsBoxContainerComponent } from './secrets-box-container/secrets-box-container.component';
-// import { SecretsBoxInputDirective } from './secrets-box-container/secrets-box-input.directive';
-// import { AggregateBlockComponent } from './aggregate-block/aggregate-block.component';
-// import { CopyPreComponent } from './copy-pre/copy-pre.component';
-// import { FileExplorerComponent } from './file-explorer/file-explorer.component';
-// import { FunctionIntegrateV2Component } from './function-integrate-v2/function-integrate-v2.component';
-// import { FunctionIntegrateComponent } from './function-integrate/function-integrate.component';
-// import { FunctionKeysComponent } from './function-keys/function-keys.component';
-// import { FunctionManageComponent } from './function-manage/function-manage.component';
-// import { FunctionMonitorComponent } from './function-monitor/function-monitor.component';
-// import { LogStreamingComponent } from './log-streaming/log-streaming.component';
-// import { RadioSelectorComponent } from './radio-selector/radio-selector.component';
-// import { RunHttpComponent } from './run-http/run-http.component';
-// import { TableFunctionMonitorComponent } from './table-function-monitor/table-function-monitor.component';
 import { TryLandingComponent } from './try-landing/try-landing.component';
-// import { AggregateBlockPipe } from './aggregate-block/aggregate-block.pipe';
-// import { MonacoEditorDirective } from './shared/directives/monaco-editor.directive';
-// import { TableFunctionMonitorPipe } from './table-function-monitor/table-function-monitor.pipe';
-// import { MainComponent } from './main/main.component';
-// import { SideNavComponent } from './side-nav/side-nav.component';
-// import { TreeViewComponent } from './tree-view/tree-view.component';
-// import { SiteDashboardComponent } from './site/site-dashboard/site-dashboard.component';
-// import { TabsComponent } from './tabs/tabs.component';
-// import { TabComponent } from './tab/tab.component';
-// import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-// import { SiteSummaryComponent } from './site/site-summary/site-summary.component';
-// import { SiteEnabledFeaturesComponent } from './site/site-enabled-features/site-enabled-features.component';
-// import { SiteManageComponent } from './site/site-manage/site-manage.component';
-// import { FeatureGroupComponent } from './feature-group/feature-group.component';
-// import { DeploymentSourceComponent } from './site/deployment-source/deployment-source.component';
-// import { DeploymentSourceSetupComponent } from './site/deployment-source-setup/deployment-source-setup.component';
-// import { MultiDropDownComponent } from './multi-drop-down/multi-drop-down.component';
 import { TopRightMenuComponent } from './top-right-menu/top-right-menu.component';
-// import { FunctionRuntimeComponent } from './site/function-runtime/function-runtime.component';
-// import { FunctionsListComponent } from './functions-list/functions-list.component';
 import { DisabledDashboardComponent } from './disabled-dashboard/disabled-dashboard.component';
 import { CreateFunctionWrapperComponent } from './create-function-wrapper/create-function-wrapper.component';
-// import { SwaggerDefinitionComponent } from './site/swagger-definition/swagger-definition.component';
-// import { SwaggerFrameDirective } from './site/swagger-frame/swagger-frame.directive';
-// import { FnWriteAccessDirective } from './shared/directives/fn-write-access.directive';
-// import { EditModeWarningComponent } from './edit-mode-warning/edit-mode-warning.component';
-// import { TextboxComponent } from './controls/textbox/textbox.component';
-// import { SiteConfigComponent } from './site/site-config/site-config.component';
-// import { SiteConfigStandaloneComponent } from './site/site-config-standalone/site-config-standalone.component';
-// import { CommandBarComponent } from './controls/command-bar/command-bar.component';
-// import { CommandComponent } from './controls/command-bar/command/command.component';
 import { EventHubComponent } from './pickers/event-hub/event-hub.component';
 import { ServiceBusComponent } from './pickers/service-bus/service-bus.component';
 import { SlotsListComponent } from './slots-list/slots-list.component';
@@ -116,9 +60,6 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { AppSettingComponent } from './pickers/app-setting/app-setting.component';
 import { PairListComponent } from './controls/pair-list/pair-list.component';
 import { RequestResposeOverrideComponent } from './api/request-respose-override/request-respose-override.component';
-// import { GeneralSettingsComponent } from './site/site-config/general-settings/general-settings.component';
-// import { AppSettingsComponent } from './site/site-config/app-settings/app-settings.component';
-// import { ConnectionStringsComponent } from './site/site-config/connection-strings/connection-strings.component';
 import { BindingEventGridComponent } from './binding-event-grid/binding-event-grid.component';
 import 'rxjs/add/operator/takeuntil';
 import 'rxjs/add/operator/filter';
@@ -126,75 +67,34 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/first';
 
+const routes = RouterModule.forRoot([
+  { path: '', pathMatch: 'full', component: InitialLoadingComponent },
+  { path: 'main', loadChildren: 'app/main/main.module#MainModule'},
+  { path: 'landing', loadChildren: 'app/getting-started/getting-started.module#GettingStartedModule'}
+]);
+
+
 @NgModule(AppModule.moduleDefinition)
 export class AppModule {
   static moduleDefinition = {
     declarations: [
       AppComponent,
       InitialLoadingComponent,
-      GettingStartedComponent,
-      // TryNowBusyStateComponent,
-      // TopBarComponent,
-      // TryNowComponent,
-      // FunctionEditComponent,
       TrialExpiredComponent,
-      // FunctionNewComponent,
-      // FunctionQuickstartComponent,
-      // TutorialComponent,
-      // SourceControlComponent,
-      // BindingComponent,
-      // TooltipContentComponent,
-      // TooltipDirective,
       ErrorListComponent,
-      // TemplatePickerComponent,
-      // BindingInputComponent,
-      // SecretsBoxContainerComponent,
-      // SecretsBoxInputDirective,
-      // AggregateBlockComponent,
-      // FileExplorerComponent,
-      // FunctionIntegrateV2Component,
-      // FunctionIntegrateComponent,
-      // FunctionMonitorComponent,
-      // LogStreamingComponent,
-      // RunHttpComponent,
-      // TableFunctionMonitorComponent,
       TryLandingComponent,
-      // AggregateBlockPipe,
-      // MonacoEditorDirective,
-      // TableFunctionMonitorPipe,
-      // TabsComponent,
-      // TabComponent,
-      // BreadcrumbsComponent,
-      // DeploymentSourceComponent,
-      // DeploymentSourceSetupComponent,
       TopRightMenuComponent,
-      // ApiDetailsComponent,
-      // ApiNewComponent,
-      // ProxiesListComponent,
-      // SlotsListComponent,
       DisabledDashboardComponent,
-      // CreateFunctionWrapperComponent,
-      // FnWriteAccessDirective,
-      // EditModeWarningComponent,
       CreateAppComponent,
-      // EventHubComponent,
-      // ServiceBusComponent,
-      // AppSettingComponent,
-      // PairListComponent,
-      // RequestResposeOverrideComponent,
-      // BindingEventGridComponent
     ],
     imports: [
       SharedModule.forRoot(),
-      // FormsModule,
       ReactiveFormsModule,
       BrowserModule,
-      // FormsModule,
       HttpModule,
       TranslateModule.forRoot(),
-      // FileUploadModule,
       PopoverModule,
-      appRouting
+      routes
     ],
     bootstrap: [AppComponent]
   };
