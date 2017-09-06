@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -264,6 +265,7 @@
     <Compile Include="Common\ActionIds.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\ErrorIds.cs" />
+    <Compile Include="Common\HttpContextExtensions.cs" />
     <Compile Include="Common\IDictionaryExtensions.cs" />
     <Compile Include="Common\View.cs" />
     <Compile Include="Common\ViewHelpers.cs" />

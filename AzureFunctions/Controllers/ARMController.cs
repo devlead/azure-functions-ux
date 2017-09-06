@@ -1,6 +1,5 @@
 ﻿using AzureFunctions.Common;
 using AzureFunctions.Contracts;
-using AzureFunctions.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
@@ -60,7 +59,7 @@ namespace AzureFunctions.Controllers
                         return response;
                     }
 
-                    var tenantsString = await response.Content.ReadAsStringAsync();
+                    var tenantsString = await response.Content.ReadAsStringUTF8Async();
                     var tenants = JArray.Parse(tenantsString);
                     tenants = SetCurrentTenant(tenants);
                     response = Request.CreateResponse(response.StatusCode);
@@ -78,7 +77,7 @@ namespace AzureFunctions.Controllers
                         return response;
                     }
 
-                    var tenantsString = await response.Content.ReadAsStringAsync();
+                    var tenantsString = await response.Content.ReadAsStringUTF8Async();
                     var tenants = (JArray)(JObject.Parse(tenantsString))["value"];
                     tenants = SetCurrentTenant(ToTenantDetails(tenants));
                     response = Request.CreateResponse(response.StatusCode);
